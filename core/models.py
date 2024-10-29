@@ -1,0 +1,177 @@
+# core/models.py
+from django.db import models
+from django.core.validators import MinLengthValidator, validate_slug
+from django.core.exceptions import ValidationError
+from django.utils.text import slugify
+from django.urls import reverse
+from imagekit.models import ProcessedImageField, ImageSpecField
+from imagekit.processors import ResizeToFit
+from django.utils.safestring import mark_safe
+from django.contrib import admin
+from django_ckeditor_5.fields import CKEditor5Field
+
+def validate_lowercase(string):
+    # https://docs.djangoproject.com/en/5.0/ref/validators/
+    lower_str = string.lower()
+    if string != lower_str:
+        raise ValidationError("All letters must be lowercase.")
+
+class Setting(models.Model):
+    name= models.CharField(max_length=150, default="Site Name")
+    address = models.CharField(max_length=255, default="Default Address")
+    phone= models.CharField(max_length=150, default="977")
+    email= models.EmailField( blank=True, null=True)
+    logo = models.ImageField(upload_to='logos/')
+    about = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Site Setting"
+
+class SocialLink(models.Model):
+    setting = models.ForeignKey(Setting, related_name="social_links", on_delete=models.CASCADE)
+    platform = models.CharField(max_length=50)  # e.g., Facebook, Twitter
+    icon = models.ImageField(upload_to='social_icons/')
+    url = models.URLField()  # Link to the social page
+
+    def __str__(self):
+        return f"{self.platform} link"
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    order = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    content = CKEditor5Field('Text', config_name='extends')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag)
+    image = models.ImageField(upload_to='posts/')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    is_published = models.BooleanField(default=False)
+    published_at = models.DateTimeField(null=True, blank=True)
+    is_featured = models.BooleanField(default=False)
+    slug_guidelines = "Enter a unique, descriptive URL path (e.g. based on the title) containing " \
+                      "only lowercase letters, numbers,  and hyphens (instead of spaces). "
+    slug = models.SlugField(max_length=60,
+                            unique=True,
+                            help_text=slug_guidelines,
+                            validators=[validate_slug, validate_lowercase])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+class ContactMessage(models.Model):
+    first_name = models.CharField(max_length=255, validators=[MinLengthValidator(1)])
+    last_name = models.CharField(max_length=255, blank=True)
+    email_address = models.EmailField()
+    subject = models.CharField(max_length=255, validators=[MinLengthValidator(2)])
+    message = models.TextField(max_length=5000, validators=[MinLengthValidator(10)])
+    contact_time = models.DateTimeField(auto_now_add=True)
+    responded_to = models.BooleanField(default=False)
+    resolved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.subject
+    
+class Collection(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(max_length=5000)
+
+    slug_guidelines = "Enter a unique, descriptive URL path (e.g. based on the name) containing " \
+                      "only lowercase letters, numbers,  and hyphens (instead of spaces). "
+
+    slug = models.SlugField(max_length=50,
+                            unique=True,
+                            help_text=slug_guidelines,
+                            validators=[validate_slug, validate_lowercase])
+
+    published = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("collection", kwargs={"collection_slug": self.slug})
+
+    class Meta:
+        ordering = ['name']
+
+
+class Photo(models.Model):
+    img_guidelines = "Upload images with a width of 2000px or greater " \
+                     "to avoid low visual quality (e.g. pixelation) on larger screen sizes."
+
+    # https://django-imagekit.readthedocs.io/en/latest/#defining-specs-in-models
+    # Avoid storing and serving very large uploaded image files
+    large_image = ProcessedImageField(verbose_name="image file",
+                                      help_text=img_guidelines,
+                                      processors=[ResizeToFit(width=2000)],
+                                      format='JPEG',
+                                      options={'quality': 80})
+
+    # Use to improve loading performance (photo listings and mobile images)
+    small_image = ImageSpecField(source='large_image',
+                                 processors=[ResizeToFit(width=550)],
+                                 format='JPEG')
+
+    # Display in the admin interface via `thumbnail_img_tag()`
+    thumbnail = ImageSpecField(source='large_image',
+                               processors=[ResizeToFit(width=150)],
+                               format='JPEG')
+
+    @admin.display(description='Thumbnail')
+    def thumbnail_img_tag(self):
+        return mark_safe('<img src="{}" />'.format(self.thumbnail.url))
+
+    title = models.CharField(max_length=255)
+
+    slug_guidelines = "Enter a unique, descriptive URL path (e.g. based on the title) containing " \
+                      "only lowercase letters, numbers,  and hyphens (instead of spaces). "
+
+    slug = models.SlugField(max_length=60,
+                            unique=True,
+                            help_text=slug_guidelines,
+                            validators=[validate_slug, validate_lowercase])
+
+    description = models.TextField(max_length=5000)
+
+    loc_guidelines = "Enter the specific location where the photo was taken."
+    location = models.CharField(max_length=255, help_text=loc_guidelines)
+
+    date_taken = models.DateField()
+
+    # Collections are optional
+    collections = models.ManyToManyField(Collection, blank=True)
+
+    featured = models.BooleanField(default=False)
+
+    published = models.BooleanField(default=True)
+
+    # Use within the XML sitemap
+    last_modified = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return "{} ({})".format(self.title, self.slug)
+
+    def get_absolute_url(self):
+        return reverse("photo_detail", kwargs={"slug": self.slug})
