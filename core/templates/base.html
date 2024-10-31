@@ -1,1 +1,232 @@
-<H1>test</H1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="ne">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site_setting.name }}</title>
+
+    <!-- CSS -->
+    <link rel=" shortcut icon" type="image/x-icon" href="">
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/slick/slick-theme.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/slick/slick.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/bootstrap.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/fontawesome/css/all.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/custom.css'%}">
+
+    <script type="text/javascript" src="{% static 'frontend/js/jquery.js'%}"></script>
+    <script type="text/javascript" src="{% static 'frontend///code.jquery.com/jquery-1.11.0.min.js'%}"></script>
+    <scrip type="text/javascript" src="{% static 'frontend///code.jquery.com/jquery-migrate-1.2.1.min.js'%}">
+        </script>
+
+        <script type="text/javascript" src="{% static 'frontend/slick/slick.min.js'%}"></script>
+        <script type="text/javascript" src="{% static 'frontend/slick/slick.js'%}"></script>
+        <script type="text/javascript" src="{% static 'frontend/js/bootstrap.js'%}"></script>
+        <script type="text/javascript" src="{% static 'frontend/js/custom.js'%}"></script>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- HEADER SECTION -->
+        <header id="header">
+            <div class="header-wrapper">
+                <div class="top-header">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="container-fluid">
+                                <span><span><i class="fas fa-map-marker-alt"></i></span>
+                                    Address : Nepal</span>
+                                <span class="float-right"> {{current_date}} </span>
+                                <div class="container-fluid mt-4 mt-xs-1">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">Blog</li>
+                                        <li class="list-inline-item">About</li>
+                                        <li class="list-inline-item">Contact</li>
+                                        <div class="float-right">
+                                            <span class="mx-2">
+
+                                                {% for link in social_links %}
+                                                <a class="social-icon" href="{{ link.url }}">
+                                                    {{ link.platform }}
+                                                    <i class="fab fa-{{ link.url }}"></i>
+                                                </a><br>
+                                                {% endfor %}
+
+                                            </span>
+
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LOGO AREA -->
+                    <div class="main-header">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-lg-4 col-md-4">
+                                    <div class="business-logo">
+                                        {% if site_setting.logo %}
+                                        <a href="{% url 'home' %}">
+                                            <img src="{{ site_setting.logo.url }}" alt="LOGO">
+                                            <!-- {{ site_setting.name }} -->
+
+                                        </a>
+                                        {% else %}
+                                        <a href="{% url 'home' %}">
+                                            {% comment %} <img src="{% static 'frontend/images/logo.png' %}" alt="LOGO">
+                                            {% endcomment %}
+                                        </a>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-8 col-md-8">
+                                    <div class="mt-2 mb-2">
+                                        adv hunxa ya
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Menu -->
+                    <div class="navigation">
+                        <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="container-fluid mt-2">
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <a href="{% url 'home' %}"><i class="fas fa-home text-white m-lg-3"></i></a>
+                                    <ul class="navbar-nav mr-auto">
+
+                                        {% for category in categories %}
+                                        <li class="nav-item active">
+                                            <a class="nav-link text-uppercase" href="#">
+                                                {{ category.name }} <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+
+
+                                </div>
+                                <div class="container-fluid">
+                                    <form class="form-inline my-1 my-lg-0 input-group">
+                                        <input class="form-control" type="text" placeholder="Search"
+                                            aria-label="Search">
+                                        <button class="btn my-sm-0 search-btn pull-right" type="search"><i
+                                                class="fas fa-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                    </nav>
+                </div>
+        </header>
+        <!-- HEADER SECTION END -->
+        {% block content %}
+        {% endblock %}
+        <footer id="footer" class="">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="footer-content">
+                            <div class="footer-logo">
+                                <img src="{{site_setting.logo.url}}">
+                            </div>
+                            <div class="footer-abt">
+                                <p class="footerabt-desc mt-3">
+                                    {{ site_setting.about }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="footer-content">
+                            <div class="footer-title mt-3 mb-2 text-center">
+                                <h6>Links</h6>
+                            </div>
+                            <div class="footer-desc">
+                                <ul class="list-unstyled">
+
+                                    {% for category in categories %}
+                                    {% if forloop.counter < 4 %} <li>
+                                        <a href="#" class="text-uppercase">{{ category.name }}</a>
+                                        </li>
+                                        {% endif %}
+                                        {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="footer-content">
+                            <div class="footer-title mt-3 mb-2 text-center">
+                                <h6>.....</h6>
+                            </div>
+                            <div class="footer-desc">
+                                <ul class="list-unstyled">
+                                    {% for category in categories %}
+                                    {% if forloop.counter > 3 %}
+                                    <li>
+                                        <a href="#" class="text-uppercase">{{ category.title }}</a>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="footer-content">
+                            <div class="footer-title mt-3 mb-2">
+                                <div class="footer-logo">
+                                    <img src="{{site_setting.logo.ur }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-3 col-sm-6">
+                                <div class="footer-content">
+
+                                    <div class="footer-desc">
+                                        <ul class="list-unstyled">
+                                            <li><a href="#" class="text-uppercase">About Us</a></li>
+                                            <li><a href="#" class="text-uppercase">Contact Us</a></li>
+                                            <li><a href="#" class="text-uppercase">Privacy Policy</a></li>
+                                            <li><a href="#" class="text-uppercase">Terms & Conditions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <div class="container-fluid text-center">
+                        <span class="copyright text-white">Copyright &copy 2024. All rights reserved.
+                        </span>
+                        <span class="visit text-white">Powered By: ATS</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Bottom End -->
+        </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

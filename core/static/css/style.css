@@ -1,0 +1,239 @@
+@charset "utf-8";
+
+/* CSS Document */
+* {
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.day {
+    color: #62536a;
+}
+
+.latest {
+    color: #000;
+}
+
+.top-left {
+    font-size: 16px;
+}
+
+.top-left a {
+    color: #569abf;
+}
+
+.top-left {
+    padding: 10px 0px;
+}
+
+.top {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.name {
+    font-size: 50px;
+    font-weight: bolder;
+    padding-top: 20px;
+}
+
+.navbar-brand {
+    display: none;
+}
+
+.nav a {
+    color: #fff;
+    font-weight: bold;
+}
+
+.menu ul li:hover>a {
+    color: #242424;
+}
+
+.menu ul li:hover .active {
+    background: #242424;
+    color: #fff;
+}
+
+
+.search input {
+    border: 1px solid #249bc6;
+    background: #242424;
+    color: #f1f1f1;
+    margin-top: 3px;
+    padding-left: 40px;
+}
+
+.search .btn {
+    margin-top: 3px;
+    margin-top: -35px;
+    color: #fff;
+}
+
+
+.main-menu {
+    background: #242424;
+    padding: 4px 0px;
+    height: 55px;
+    border-top: 5px solid #249bc6;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.icon-bar {
+    background: #fff;
+    margin-top: -5px;
+}
+
+h3 {
+    color: #fff;
+}
+
+.wrapper {
+    width: 95%;
+}
+
+.wrapper-2 {
+    width: 95%;
+    border: 1px solid #ccc;
+}
+
+.bottom {
+    background: #3e3e3e;
+    padding: 50px;
+    margin-top: 50px;
+    color: #fff;
+}
+
+.copyright {
+    background: #333333;
+    color: #7b7b7b;
+    padding: 10px;
+}
+
+.copyright a {
+    color: #fff;
+}
+
+.goto {
+    color: #943428;
+    font-size: 24px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+
+}
+
+.bottom ul li:hover>a {
+    color: #242424;
+}
+
+.caption {
+    color: #fff;
+    margin-top: -30px;
+    z-index: 999;
+    position: absolute;
+    padding-left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.glyphicon-chevron-right {
+    font-size: 11px;
+    font-weight: 100;
+    color: #333;
+}
+
+h4 {
+    padding-left: 10px;
+}
+
+.fashion img {
+    margin-left: -15px;
+}
+
+.image-gallery img {
+    width: 18.7%;
+    margin-right: 10px;
+}
+
+.social-icon {
+    background: #2ca0c9;
+    padding: 5px 10px;
+    color: #fff;
+}
+
+@media(max-width:420px) {
+
+    body {
+        width: 100%;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+
+    .brand {
+        display: none;
+    }
+
+    .main-menu {
+        margin-top: 0px;
+        height: auto;
+        padding-bottom: 15px;
+    }
+
+    .search {
+        margin-top: -20px;
+    }
+
+    .navbar-brand {
+        display: block;
+        font-size: 36px;
+    }
+
+    .wrapper {
+        width: 100%;
+    }
+
+    .wrapper img {
+        margin-bottom: 15px;
+    }
+
+    .goto {
+        margin-left: 0px;
+        margin-top: 20px;
+    }
+
+    .name {
+        font-size: 30px;
+    }
+
+    .caption {
+        margin-top: -50px;
+    }
+
+    h4 {
+        padding-left: 0px;
+    }
+
+    .fashion img {
+        margin-left: 0px;
+    }
+
+    .glyphicon-chevron-right {
+        margin-bottom: 15px;
+    }
+
+    .image-gallery img {
+        width: 100%;
+        margin-right: 0px;
+        margin-bottom: 15px;
+    }
+}
