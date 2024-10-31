@@ -23,6 +23,7 @@ from core.views import custom_upload_function
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("upload/", custom_upload_function, name="custom_upload_file"),
+    path('', include('core.urls')),
+
 ]
     

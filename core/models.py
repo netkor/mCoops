@@ -22,7 +22,12 @@ class Setting(models.Model):
     phone= models.CharField(max_length=150, default="977")
     email= models.EmailField( blank=True, null=True)
     logo = models.ImageField(upload_to='logos/')
-    about = models.TextField()
+    about = models.TextField(default="Default About")
+    mission = models.TextField(default="Default Mission")
+    vision = models.TextField(default="Default Vision")
+    slogan = models.CharField(max_length=350, default="Default Slogan")
+    is_headoffice = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -37,7 +42,114 @@ class SocialLink(models.Model):
 
     def __str__(self):
         return f"{self.platform} link"
+    
+class Slider(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    image = models.ImageField(upload_to='sliders/')
+    link = models.URLField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+    
+class Testimonial(models.Model):
+    name = models.CharField(max_length=150)
+    position = models.CharField(max_length=150)
+    description = models.TextField()
+    image = models.ImageField(upload_to='testimonials/')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+class Team_Type(models.Model):
+    name = models.CharField(max_length=150)
+    description = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
+class Team(models.Model):
+    name = models.CharField(max_length=150)
+    phone = models.CharField(max_length=150)
+    email = models.EmailField()
+    team_type = models.ForeignKey(Team_Type, on_delete=models.CASCADE)
+    position = models.CharField(max_length=150)
+    description = models.TextField()
+    message = models.TextField()
+    image = models.ImageField(upload_to='teams/')
+    session = models.CharField(max_length=150)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class FinancialReportType(models.Model):
+    name = models.CharField(max_length=150)
+    description = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
+class FinancialReport(models.Model):
+    title = models.CharField(max_length=150)
+    financial_report_type = models.ForeignKey(FinancialReportType, on_delete=models.CASCADE)
+    description = models.TextField()
+    image = models.ImageField(upload_to='financial_reports/')
+    file = models.FileField(upload_to='financial_reports/')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+    
+class Notice(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    image = models.ImageField(upload_to='notices/')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+    
+class Download(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    file = models.FileField(upload_to='downloads/')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+class Popup(models.Model):
+    title = models.CharField(max_length=150,default="Popup Title")
+    description = models.TextField(default="Popup Description")
+    image = models.ImageField(upload_to='popups/')
+    link = models.URLField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+    
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -80,6 +192,40 @@ class Post(models.Model):
         return self.title
 
 
+class Product(models.Model):
+    name = models.CharField(max_length=150)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+class ProductDetails(models.Model):
+    name = models.CharField(max_length=150)
+    description = models.TextField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    minimum_deposit = models.DecimalField(max_digits=10, decimal_places=2)
+    withdrawal_policy = models.TextField()
+    term_length = models.IntegerField()
+    is_renewable = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class InterestRate(models.Model):
+    name = models.CharField(max_length=150)
+    product_type = models.ForeignKey(ProductDetails, on_delete=models.CASCADE)
+    interest_rate = models.DecimalField(max_digits=5, decimal_places=2)
+    effective_date = models.DateField()
+    end_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    
 class ContactMessage(models.Model):
     first_name = models.CharField(max_length=255, validators=[MinLengthValidator(1)])
     last_name = models.CharField(max_length=255, blank=True)
