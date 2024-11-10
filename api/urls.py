@@ -1,10 +1,25 @@
 # api/urls.py
 from django.urls import path
-from. import views
-from rest_framework.routers import DefaultRouter
+from . import views
 
-router = DefaultRouter()
 urlpatterns = [
-    path('posts', views.post_list, name='post-list'),    
-    path('settings', views.setting_list, name='setting-list'),
+    path('settings/', views.SettingList.as_view(), name='settings'),
+    path('sliders/', views.SliderList.as_view(), name='sliders'),
+    path('categories/', views.CategoryList.as_view(), name='categories'),
+    path('contact-messages/', views.ContactMessageList.as_view(), name='contact_messages'),
+    path('downloads/', views.DownloadList.as_view(), name='downloads'),
+    path('financial-report-types/', views.FinancialReportTypeList.as_view(), name='financial_report_types'),
+    path('financial-reports/', views.FinancialReportList.as_view(), name='financial_reports'),
+    path('interest-rates/', views.InterestRateList.as_view(), name='interest_rates'),
+    path('notices/', views.NoticeList.as_view(), name='notices'),
+    path('photos/', views.PhotoList.as_view(), name='photos'),
+    path('popups/', views.PopupList.as_view(), name='popups'),
+    path('posts/', views.PostList.as_view(), name='posts'),
+    path('products/', views.ProductList.as_view(), name='products'),
+    path('product-details/', views.ProductDetailsList.as_view(), name='product_details'),
+    path('social-links/', views.SocialLinkList.as_view(), name='social_links'),
+    path('tags/', views.TagList.as_view(), name='tags'),
+    path('team-types/', views.Team_TypeList.as_view(), name='team_types'),
+    path('teams/', views.TeamList.as_view(), name='teams'),
+    path('testimonials/', views.TestimonialList.as_view(), name='testimonials'),
 ]
