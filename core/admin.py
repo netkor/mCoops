@@ -12,9 +12,8 @@ from .models import (
 # Setting Model Admin
 @admin.register(Setting)
 class SettingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'phone', 'email', 'is_active')
+    list_display = ('name','name_np', 'address', 'phone', 'email', 'is_active')
     search_fields = ('name', 'address', 'email')
-    list_filter = ('is_active', 'is_headoffice')
     ordering = ('-created_at',)
 
 @admin.register(SocialLink)

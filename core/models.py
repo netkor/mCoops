@@ -17,16 +17,31 @@ def validate_lowercase(string):
         raise ValidationError("All letters must be lowercase.")
 
 class Setting(models.Model):
-    name= models.CharField(max_length=150, default="Site Name")
+    name= models.CharField(max_length=250, default="Site Name")
+    name_np= models.CharField(max_length=350, default="Site Name", null=True)
     address = models.CharField(max_length=255, default="Default Address")
+    address_np = models.CharField(max_length=355, default="Default Address", null=True)
     phone= models.CharField(max_length=150, default="977")
+    phone1 = models.CharField(max_length=150, default="977")
+    landline = models.CharField(max_length=150, default="977")
+    landline1 = models.CharField(max_length=150, default="977")
     email= models.EmailField( blank=True, null=True)
+    map_url = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='logos/')
     about = models.TextField(default="Default About")
     mission = models.TextField(default="Default Mission")
     vision = models.TextField(default="Default Vision")
     slogan = models.CharField(max_length=350, default="Default Slogan")
-    is_headoffice = models.BooleanField(default=False)
+    OFFICE_TYPE_CHOICES = [
+        ('head_office', 'Head Office'),
+        ('branch_office', 'Branch Office'),
+        ('collection_center', 'Collection Center'),
+    ]
+    office_type = models.CharField(
+        max_length=20,
+        choices=OFFICE_TYPE_CHOICES,
+        default='branch_office'
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -57,6 +72,7 @@ class Slider(models.Model):
     
 class Testimonial(models.Model):
     name = models.CharField(max_length=150)
+    name_np = models.CharField(max_length=350, null=True)
     position = models.CharField(max_length=150)
     description = models.TextField()
     image = models.ImageField(upload_to='testimonials/')
@@ -77,7 +93,8 @@ class Team_Type(models.Model):
         return self.name
     
 class Team(models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=250)
+    name_np = models.CharField(max_length=350, null=True)
     phone = models.CharField(max_length=150)
     email = models.EmailField()
     team_type = models.ForeignKey(Team_Type, on_delete=models.CASCADE)
@@ -105,6 +122,7 @@ class FinancialReportType(models.Model):
     
 class FinancialReport(models.Model):
     title = models.CharField(max_length=150)
+    title_np = models.CharField(max_length=350, null=True)
     financial_report_type = models.ForeignKey(FinancialReportType, on_delete=models.CASCADE)
     description = models.TextField()
     image = models.ImageField(upload_to='financial_reports/')
