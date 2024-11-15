@@ -9,6 +9,7 @@ const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 function Navbar() {
   const [settings, setSettings] = useState({});
+  const [scrolled, setScrolled] = useState(false);
   const settingsUrl = `${baseUrl}/settings`;
 
   useEffect(() => {
@@ -21,6 +22,18 @@ function Navbar() {
       .catch(error => {
         console.error("There was an error fetching the settings!", error);
       });
+      const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [settingsUrl]);
 
   return (
@@ -72,7 +85,7 @@ function Navbar() {
       </div>
 
       {/* Navbar Section */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className={`navbar navbar-expand-lg navbar-light bg-light ${scrolled ? 'fixed-top opacity-50' : ''}`}>
         <div className="container">
           <Link className="navbar-brand" to="/">
             {settings.logo ? <img src={`${imageUrl}${settings.logo}`} alt="Logo" width="30" height="30" className="d-inline-block align-text-top" /> : "Navbar"}
@@ -92,7 +105,7 @@ function Navbar() {
                 <Link className="nav-link" to="/pricing">Pricing</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/about">About</Link>
+                <Link className="nav-link" to="/introduction">About</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/contact">Contact</Link>

@@ -31,6 +31,8 @@ class Setting(models.Model):
     about = models.TextField(default="Default About")
     mission = models.TextField(default="Default Mission")
     vision = models.TextField(default="Default Vision")
+    goal = models.TextField(default="Default Goal", null=True)
+    objective = models.TextField(default="Default Objective", null=True)
     slogan = models.CharField(max_length=350, default="Default Slogan")
     OFFICE_TYPE_CHOICES = [
         ('head_office', 'Head Office'),
