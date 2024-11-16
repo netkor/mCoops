@@ -2,32 +2,34 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_API_URL;
+const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 const Notice = () => {
-  const [loanInterestRates, setLoanInterestRates] = useState([]);
-  const loanInterestRatesUrl = `${baseUrl}/loan-interest-rates`;
+  const [notices, setNotices] = useState([]);
+  const noticesUrl = `${baseUrl}/notices`;
 
   useEffect(() => {
-    axios.get(loanInterestRatesUrl)
+    axios.get(noticesUrl)
       .then(response => {
-        setLoanInterestRates(response.data);
+        setNotices(response.data);
       })
       .catch(error => {
-        console.error("There was an error fetching the loan interest rates!", error);
+        console.error("There was an error fetching the notices!", error);
       });
-  }, [loanInterestRatesUrl]);
+  }, [noticesUrl]);
 
   return (
     <div className="container my-4">
-      <h2 className="text-center mb-4">Loan Interest Rates</h2>
+      <h2 className="text-center mb-4">Notices</h2>
       <div className="row">
-        {loanInterestRates.map((rate, index) => (
+        {notices.map((notice, index) => (
           <div className="col-md-4 mb-4" key={index}>
             <div className="card h-100">
+              <img src={`${imageUrl}${notice.image}`} className="card-img-top" alt={notice.title} />
               <div className="card-body">
-                <h5 className="card-title">{rate.name}</h5>
-                <p className="card-text">Interest Rate: {rate.interest_rate}%</p>
-                <p className="card-text">Description: {rate.description}</p>
+                <h5 className="card-title">{notice.title}</h5>
+                <p className="card-text">{notice.description}</p>
+                <p className="card-text"><small className="text-muted">Posted on: {new Date(notice.created_at).toLocaleDateString()}</small></p>
               </div>
             </div>
           </div>
