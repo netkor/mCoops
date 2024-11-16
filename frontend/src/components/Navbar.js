@@ -39,51 +39,70 @@ function Navbar() {
   return (
     <header className="bg-white border-bottom">
       {/* Top Section */}
-      <div className="container py-2 d-flex justify-content-between align-items-center">
+      <div className="container">
+      <div className="d-flex justify-content-between align-items-center">
+        {/* Logo and Organization Name */}
         <div className="d-flex align-items-center">
           <img
             src={settings.logo ? `${imageUrl}${settings.logo}` : "https://via.placeholder.com/100"}
             alt="Logo"
-            style={{ height: "50px" }}
+            className="rounded-circle border"
+            style={{ height: "40px", width: "40px", objectFit: "cover" }}
           />
-          <h5 className="ms-3 text-success fw-bold mb-0">
-            {settings.name_np || "मनकामना बचत तथा ऋण सहकारी संस्था लि."} <br />
-            <span className="text-muted" style={{ fontSize: "14px" }}>
-            {settings.name || "मनकामना बचत तथा ऋण सहकारी संस्था लि."}
+          <div className="ms-2">
+            <h6 className="text-success fw-bold mb-0" style={{ fontSize: "18px" }}>
+              {settings.name_np || "मनकामना बचत तथा ऋण सहकारी संस्था लि."}
+            </h6>
+            <span className="text-muted d-block" style={{ fontSize: "14px" }}>
+              {settings.name || "Manakamana Cooperative Ltd."}
             </span>
-          </h5>
+          </div>
         </div>
-        <div className="d-flex align-items-center gap-4">
+
+        {/* Contact Info */}
+        <div className="d-flex align-items-center gap-3">
+          {/* Location */}
           <div className="text-center">
-            <i className="bi bi-geo-alt-fill text-primary fs-5"></i>
-            <p className="mb-0" style={{ fontSize: "14px" }}>
+            <div className="p-1 bg-light rounded-circle shadow-sm d-inline-block">
+              <i className="bi bi-geo-alt-fill text-primary fs-5"></i>
+            </div>
+            <p className="mb-0 fw-bold text-dark" style={{ fontSize: "12px" }}>
               Location
             </p>
-            <span className="text-muted" style={{ fontSize: "12px" }}>
-              {settings.address}
+            <span className="text-muted d-block" style={{ fontSize: "10px" }}>
+              {settings.address || "Damak, Jhapa, Nepal"}
             </span>
           </div>
+
+          {/* Phone */}
           <div className="text-center">
-            <i className="bi bi-telephone-fill text-danger fs-5"></i>
-            <p className="mb-0" style={{ fontSize: "14px" }}>
+            <div className="p-1 bg-light rounded-circle shadow-sm d-inline-block">
+              <i className="bi bi-telephone-fill text-danger fs-5"></i>
+            </div>
+            <p className="mb-0 fw-bold text-dark" style={{ fontSize: "12px" }}>
               Phone
             </p>
-            <span className="text-muted" style={{ fontSize: "12px" }}>
-              {settings.phone}
+            <span className="text-muted d-block" style={{ fontSize: "10px" }}>
+              {settings.phone || "+977-1234567890"}
             </span>
           </div>
+
+          {/* Opening Hours */}
           <div className="text-center">
-            <i className="bi bi-clock-fill text-warning fs-5"></i>
-            <p className="mb-0" style={{ fontSize: "14px" }}>
+            <div className="p-1 bg-light rounded-circle shadow-sm d-inline-block">
+              <i className="bi bi-clock-fill text-warning fs-5"></i>
+            </div>
+            <p className="mb-0 fw-bold text-dark" style={{ fontSize: "12px" }}>
               Opening Hours
             </p>
-            <span className="text-muted" style={{ fontSize: "12px" }}>
-              Tuesday-Sunday: 9am - 4pm <br /> Monday: 9am - 12pm
+            <span className="text-muted d-block" style={{ fontSize: "10px" }}>
+              Tue-Sun: 9am - 4pm <br /> Mon: 9am - 12pm
             </span>
           </div>
         </div>
       </div>
-
+    </div>
+<hr></hr>
       {/* Navbar Section */}
       <nav className={`navbar navbar-expand-lg navbar-light bg-light ${scrolled ? 'fixed-top opacity-50' : ''}`}>
         <div className="container">
@@ -136,6 +155,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
+      <hr></hr>
     </header>
   );
 }
