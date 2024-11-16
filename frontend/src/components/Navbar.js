@@ -112,8 +112,8 @@ function Navbar() {
                   <li><Link className="dropdown-item" to="/introduction">Introduction</Link></li>
                   <li><Link className="dropdown-item" to="/message-from-director">Message from Directors</Link></li>
                   <li><Link className="dropdown-item" to="/board-of-directors">Board of Members</Link></li>
-                  <li><Link className="dropdown-item" to="/team">Our Team</Link></li>
-                  <li><Link className="dropdown-item" to="/team">Our Financials</Link></li>
+                  <li><Link className="dropdown-item" to="/our-teams">Our Team</Link></li>
+                  <li><Link className="dropdown-item" to="/our-financials">Our Financials</Link></li>
                   <li><Link className="dropdown-item" to="/barsik-pratibedan-2081/">Annual Report</Link></li>
                 </ul>
               </li>

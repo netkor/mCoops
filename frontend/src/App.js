@@ -7,6 +7,9 @@ import Footer from './components/Footer'; // Import the Footer component
 import Introduction from './pages/About/Introduction';
 import MessageFromDirector from './pages/About/MessageFromDirector';
 import BoardOfDirectors from './pages/About/BoardOfDirectors';
+import OurTeam from './pages/About/OurTeam';
+import OurFinancial from './pages/About/OurFinancial';
+import AnnualReport from './pages/About/AnnualReport';
 
 
 
@@ -21,6 +24,9 @@ function App() {
             <Route path="/introduction" element={<Introduction />} />
             <Route path="/message-from-director" element={<MessageFromDirector />} />
             <Route path="/board-of-directors" element={<BoardOfDirectors />} />
+            <Route path="/our-teams" element={<OurTeam />} />
+            <Route path="/our-financials" element={<OurFinancial />} />
+            <Route path="/barsik-pratibedan-2081" element={<AnnualReport />} />
 
             
             {/* Add more routes as needed */}

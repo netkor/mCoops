@@ -68,7 +68,7 @@ const MessageFromDirector = () => {
               <div className="card-body">
                 <h5 className="card-title">{team.title}</h5>
                 <h6 className="card-subtitle mb-4 text-muted">{team.name}</h6>
-                <p className="card-text">{team.message}</p>
+                <p className="card-text justify">{team.message}</p>
               </div>
             </div>
           </div>

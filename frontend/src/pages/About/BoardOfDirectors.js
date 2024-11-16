@@ -59,7 +59,7 @@ const BoardOfDirectors = () => {
           <h3 className="my-4 text-center">{group.type.name}</h3>
           <div className="row justify-content-center">
             {group.members.map((team, index) => (
-              <div className="col-md-3" key={index}>
+              <div className="col-md-3 mb-2" key={index}>
                 <div className="card h-100 text-center shadow">
                   <div className="mt-3">
                     <img

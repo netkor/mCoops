@@ -22,7 +22,7 @@ const Message = () => {
     <div className="container my-4">
       <div className="row">
         {teams.map((team, index) => (
-          <div className="col-md-4" key={index}>
+          <div className="col-md-4 mb-2" key={index}>
             <div className="card h-100 text-center shadow">
               <div className="mt-3">
                 <img
@@ -39,7 +39,9 @@ const Message = () => {
               <div className="card-body">
                 <h5 className="card-title">{team.title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{team.name}</h6>
-                <p className="card-text">{team.message}</p>
+                <p className="card-text">
+                  {team.message.length > 200 ? `${team.message.substring(0, 200)}...` : team.message}
+                </p>
                 <a href="/test" className="btn btn-primary">
                   थप पढ्नुहोस्
                 </a>
