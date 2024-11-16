@@ -1,38 +1,88 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const baseUrl = process.env.REACT_APP_API_URL;
+const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 const Deposit = () => {
-  const [loanInterestRates, setLoanInterestRates] = useState([]);
-  const loanInterestRatesUrl = `${baseUrl}/loan-interest-rates`;
+  const [productDetails, setProductDetails] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const productDetailsUrl = `${baseUrl}/product-details`;
+  const productsUrl = `${baseUrl}/products`;
 
   useEffect(() => {
-    axios.get(loanInterestRatesUrl)
-      .then(response => {
-        setLoanInterestRates(response.data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the loan interest rates!", error);
-      });
-  }, [loanInterestRatesUrl]);
+    const fetchData = async () => {
+      try {
+        const [productDetailsResponse, productResponse] = await Promise.all([
+          axios.get(productDetailsUrl),
+          axios.get(productsUrl),
+        ]);
+        setProductDetails(productDetailsResponse.data);
+        setProducts(productResponse.data);
+        setLoading(false);
+      } catch (error) {
+        setError("There was an error fetching the data!");
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [productDetailsUrl, productsUrl]);
+
+  const filteredProducts = products.filter((product) => product.name === "बचत");
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
-    <div className="container my-4">
-      <h2 className="text-center mb-4">Loan Interest Rates</h2>
-      <div className="row">
-        {loanInterestRates.map((rate, index) => (
-          <div className="col-md-4 mb-4" key={index}>
-            <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title">{rate.name}</h5>
-                <p className="card-text">Interest Rate: {rate.interest_rate}%</p>
-                <p className="card-text">Description: {rate.description}</p>
-              </div>
-            </div>
+    <div className="container mb-2" style={{  backgroundImage: 'url(https://wallpapercave.com/wp/wp3589868.jpg)' }}>
+      {filteredProducts.map((product, index) => (
+        <div key={index}>
+          <h3 className="my-4 text-center">{product.name}</h3>
+          <div className="row justify-content-center">
+            {productDetails
+              .filter((detail) => detail.product === product.id)
+              .map((detail, index) => (
+                <div className="col-md-3 mb-2" key={index}>
+                  <div className="card border-0 shadow-sm rounded">
+                    <div className="card-header bg-white border-0 text-center py-3">
+                      <div className="d-flex flex-column align-items-center">
+                        <div className="mb-3">
+                          <img
+                            src={`${imageUrl}${detail.banner}`}
+                            alt={detail.name}
+                            style={{ height: "150px" }}
+                          />
+                        </div>
+                        <h5 className="text-success fw-bold mb-1">
+                          {detail.name}
+                        </h5>
+                      </div>
+                    </div>
+                    <div className="card-body text-center">
+                      <h6 className="fw-bold text-dark">
+                        Minimum Deposit: {detail.minimum_deposit}
+                      </h6>
+                      <p className="text-muted" style={{ textAlign: "justify", fontSize: "14px" }}>
+                        {detail.description.length > 50 ? `${detail.description.substring(0, 50)}...` : detail.description}
+                      </p>
+                      <a href="/test" className="text-success text-decoration-none">
+                        थप पढ्नुहोस् <i className="bi bi-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
