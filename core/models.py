@@ -223,6 +223,7 @@ class Product(models.Model):
 class ProductDetails(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField()
+    banner = models.ImageField(upload_to='products/')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     minimum_deposit = models.DecimalField(max_digits=10, decimal_places=2)
     withdrawal_policy = models.TextField()

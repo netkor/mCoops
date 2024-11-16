@@ -10,6 +10,17 @@ import BoardOfDirectors from './pages/About/BoardOfDirectors';
 import OurTeam from './pages/About/OurTeam';
 import OurFinancial from './pages/About/OurFinancial';
 import AnnualReport from './pages/About/AnnualReport';
+import Loan from './pages/Product/Loan';
+import Deposit from './pages/Product/Deposit';
+import Remittance from './pages/Product/Remittance';
+import MobileBanking from './pages/Product/MobileBanking';
+import SavingInterestRate from './pages/Interest/SavingInterestRate';
+import LoanInterestRate from './pages/Interest/LoanInterestRate';
+import Branch from './pages/Branch';
+import Download from './pages/Download';
+import Contact from './pages/Contact';
+import Gallery from './pages/Gallery';
+import Notice from './pages/Notice';
 
 
 
@@ -27,6 +38,18 @@ function App() {
             <Route path="/our-teams" element={<OurTeam />} />
             <Route path="/our-financials" element={<OurFinancial />} />
             <Route path="/barsik-pratibedan-2081" element={<AnnualReport />} />
+            <Route path="/loan" element={<Loan />} />
+            <Route path="/deposit" element={<Deposit />} />
+            <Route path="/remittance" element={<Remittance />} />
+            <Route path="/mobile-banking" element={<MobileBanking />} />
+            <Route path="/saving-interest-rate" element={<SavingInterestRate />} />
+            <Route path="/loan-interest-rate" element={<LoanInterestRate />} />
+            <Route path="/branches" element={<Branch />} />
+            <Route path="/download" element={<Download />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/notice" element={<Notice />} />           
+
 
             
             {/* Add more routes as needed */}

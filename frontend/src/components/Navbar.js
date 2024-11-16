@@ -118,10 +118,10 @@ function Navbar() {
                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/features">Features</Link>
+                <Link className="nav-link" to="/branches">Branch</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/pricing">Pricing</Link>
+                <Link className="nav-link" to="/download">Download</Link>
               </li>
               <li className="nav-item dropdown">
                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -140,15 +140,31 @@ function Navbar() {
               <li className="nav-item">
                 <Link className="nav-link" to="/contact">Contact</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/gallery">Gallery</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/notice">Notice</Link>
+              </li>
               <li className="nav-item dropdown">
                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  More
+                  Interest Rate
                 </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><Link className="dropdown-item" to="/action">Action</Link></li>
-                  <li><Link className="dropdown-item" to="/another-action">Another action</Link></li>
+                  <li><Link className="dropdown-item" to="/saving-interest-rate">Saving Interest Rate</Link></li>
+                  <li><Link className="dropdown-item" to="/loan-interest-rate">Loan Interest Rate</Link></li>
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Product & Services
+                </Link>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><Link className="dropdown-item" to="/deposit">Deposit</Link></li>
+                  <li><Link className="dropdown-item" to="/loan">Loan</Link></li>
                   <li><hr className="dropdown-divider" /></li>
-                  <li><Link className="dropdown-item" to="/something-else">Something else here</Link></li>
+                  <li><Link className="dropdown-item" to="/remittance">Remittance</Link></li>
+                  <li><Link className="dropdown-item" to="/mobile-banking">Mobile Banking</Link></li>
                 </ul>
               </li>
             </ul>
