@@ -4,14 +4,14 @@ import axios from 'axios';
 const baseUrl = process.env.REACT_APP_API_URL;
 
 const Goals = () => {
-  const [goals, setGoals] = useState('');
+  const [goal, setGoals] = useState('');
   const settingsUrl = `${baseUrl}/settings`;
 
   useEffect(() => {
     axios.get(settingsUrl)
       .then(response => {
         if (response.data.length > 0) {
-          setGoals(response.data[0].goals);
+          setGoals(response.data[0].goal);
         }
       })
       .catch(error => {
@@ -23,7 +23,7 @@ const Goals = () => {
     <div className="card">
       <div className="card-body">
         <h5 className="card-title">Goals</h5>
-        <p className="card-text">{goals}</p>
+        <p className="card-text">{goal}</p>
       </div>
     </div>
   );

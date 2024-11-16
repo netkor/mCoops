@@ -40,7 +40,7 @@ const Message = () => {
                 <h5 className="card-title">{team.title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{team.name}</h6>
                 <p className="card-text">{team.message}</p>
-                <a href="#" className="btn btn-primary">
+                <a href="/test" className="btn btn-primary">
                   थप पढ्नुहोस्
                 </a>
               </div>

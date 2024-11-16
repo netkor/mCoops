@@ -4,7 +4,10 @@ import Navbar from './components/Navbar'; // Import the Navbar component
 import Home from './pages/Home'; // Import the Home component
 import Footer from './components/Footer'; // Import the Footer component
 // Import other page components as needed
-import Introduction from './pages/Introduction';
+import Introduction from './pages/About/Introduction';
+import MessageFromDirector from './pages/About/MessageFromDirector';
+import BoardOfDirectors from './pages/About/BoardOfDirectors';
+
 
 
 function App() {
@@ -16,6 +19,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/introduction" element={<Introduction />} />
+            <Route path="/message-from-director" element={<MessageFromDirector />} />
+            <Route path="/board-of-directors" element={<BoardOfDirectors />} />
 
             
             {/* Add more routes as needed */}

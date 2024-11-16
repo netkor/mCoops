@@ -1,9 +1,9 @@
 import React from 'react';
-import IntroductionMessage from '../components/IntroductionMessage'; // Adjust the path as necessary
-import Goals from '../components/Goals'; // Adjust the path as necessary
-import Mission from '../components/Mission'; // Adjust the path as necessary
-import Objective from '../components/Objective'; // Adjust the path as necessary
-import Vision from '../components/Vision'; // Adjust the path as necessary
+import IntroductionMessage from '../../components/About/IntroductionMessage'; // Adjust the path as necessary
+import Goals from '../../components/About/Goals'; // Adjust the path as necessary
+import Mission from '../../components/About/Mission'; // Adjust the path as necessary
+import Objective from '../../components/About/Objective'; // Adjust the path as necessary
+import Vision from '../../components/About/Vision'; // Adjust the path as necessary
 
 const Introduction = () => {
   return (

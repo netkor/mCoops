@@ -104,9 +104,20 @@ function Navbar() {
               <li className="nav-item">
                 <Link className="nav-link" to="/pricing">Pricing</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/introduction">About</Link>
+              <li className="nav-item dropdown">
+                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  About
+                </Link>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><Link className="dropdown-item" to="/introduction">Introduction</Link></li>
+                  <li><Link className="dropdown-item" to="/message-from-director">Message from Directors</Link></li>
+                  <li><Link className="dropdown-item" to="/board-of-directors">Board of Members</Link></li>
+                  <li><Link className="dropdown-item" to="/team">Our Team</Link></li>
+                  <li><Link className="dropdown-item" to="/team">Our Financials</Link></li>
+                  <li><Link className="dropdown-item" to="/barsik-pratibedan-2081/">Annual Report</Link></li>
+                </ul>
               </li>
+      
               <li className="nav-item">
                 <Link className="nav-link" to="/contact">Contact</Link>
               </li>

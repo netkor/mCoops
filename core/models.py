@@ -87,6 +87,7 @@ class Testimonial(models.Model):
 class Team_Type(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField()
+    order_by = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -105,6 +106,7 @@ class Team(models.Model):
     message = models.TextField()
     image = models.ImageField(upload_to='teams/')
     session = models.CharField(max_length=150)
+    order_by = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
