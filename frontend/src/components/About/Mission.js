@@ -19,13 +19,19 @@ const Mission = () => {
       });
   }, [settingsUrl]);
 
+
   return (
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">Mission</h5>
-        <p className="card-text">{mission}</p>
+    <div className="col-md-12">
+    <div className="border p-3 rounded h-100">
+      <div className="bg-light p-3 rounded-circle mx-auto" style={{ width: '30px', height: '30px' }}>
+        <i className="bi bi-cash fs-4 text-primary"></i>
       </div>
+      <h5 className="text-primary fw-bold">Mission</h5>
+      <p>
+        {mission}
+      </p>
     </div>
+  </div>
   );
 };
 

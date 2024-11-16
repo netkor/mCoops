@@ -7,7 +7,7 @@ import Vision from '../../components/About/Vision'; // Adjust the path as necess
 
 const Introduction = () => {
   return (
-    <div className="container my-4">
+    <div className="container my-4" style={{  backgroundImage: 'url(https://wallpapercave.com/wp/wp3589868.jpg)' }}>
       <div className="row">
         <div className="col-md-8">
           <IntroductionMessage />
@@ -23,12 +23,12 @@ const Introduction = () => {
               <Mission />
             </div>
           </div>
-          <div className="row">
+          <div className="row mb-4">
             <div className="col-12">
               <Goals />
             </div>
           </div>
-          <div className="row">
+          <div className="row mb-4">
             <div className="col-12">
               <Objective />
             </div>

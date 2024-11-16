@@ -20,9 +20,22 @@ const IntroductionMessage = () => {
   }, [settingsUrl]);
 
   return (
-    <div>
-      <h2>Hamro Barema</h2>
-      <p>{about}</p>
+    <div className="container py-4">
+      {/* Main Section */}
+      <div className="row mb-5">
+        <div className="col-md-12">
+          <h2 className="text-primary fw-bold ">हाम्रो बारेमा</h2>
+          <div className="clearfix">
+            <img
+              src="https://lh3.googleusercontent.com/d/1MvLrQNe8XjRC0jvXJtAyAWUDNmlZUV5h=w2048?authuser=0"
+              alt="Building"
+              className="img-fluid rounded float-md-start me-3 mb-3"
+              style={{ maxWidth: '300px' }}
+            />
+            <p style={{ textAlign: 'justify' }}>{about}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

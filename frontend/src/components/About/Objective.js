@@ -20,12 +20,17 @@ const Objective = () => {
   }, [settingsUrl]);
 
   return (
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">Objective</h5>
-        <p className="card-text">{objective}</p>
+    <div className="col-md-12">
+    <div className="border p-3 rounded h-100">
+      <div className="bg-light p-3 rounded-circle mx-auto" style={{ width: '30px', height: '30px' }}>
+        <i className="bi bi-cash-stack fs-4 text-primary"></i>
       </div>
+      <h5 className="text-primary fw-bold">Objective</h5>
+      <p>
+        {objective}
+      </p>
     </div>
+  </div>
   );
 };
 

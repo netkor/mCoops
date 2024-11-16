@@ -20,12 +20,17 @@ const Goals = () => {
   }, [settingsUrl]);
 
   return (
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">Goals</h5>
-        <p className="card-text">{goal}</p>
+    <div className="col-md-12">
+    <div className="border p-3 rounded h-100">
+      <div className="bg-light p-3 rounded-circle mx-auto" style={{ width: '30px', height: '30px' }}>
+      <i className="bi bi-bullseye fs-4 text-success"></i>
       </div>
+      <h5 className="text-primary fw-bold">Goal</h5>
+      <p>
+        {goal}
+      </p>
     </div>
+  </div>
   );
 };
 
