@@ -1,6 +1,8 @@
 # api/views/posts.py
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status
+
 
 from core.models import (
     Setting, Slider, Category, ContactMessage, Download, FinancialReportType, FinancialReport, 
@@ -96,6 +98,16 @@ class ProductDetailsList(APIView):
         product_details = ProductDetails.objects.all()
         serializer = ProductDetailsSerializer(product_details, many=True)
         return Response(serializer.data)
+    
+class ProductDetail(APIView):
+    def get(self, request, pk):
+        try:
+            product_detail = ProductDetails.objects.get(pk=pk)
+        except ProductDetails.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = ProductDetailsSerializer(product_detail)
+        return Response(serializer.data)    
 
 class SocialLinkList(APIView):
     def get(self, request):

@@ -21,6 +21,7 @@ import Download from './pages/Download';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import Notice from './pages/Notice';
+import ProductDetails from './pages/Product/ProductDetails';
 
 
 
@@ -49,6 +50,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/notice" element={<Notice />} />           
+            <Route path="/product/:id" element={<ProductDetails />} />
+            {/* Add more routes as needed */}
 
 
             

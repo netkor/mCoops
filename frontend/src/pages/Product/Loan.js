@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 const imageUrl = process.env.REACT_APP_IMAGE_URL;
@@ -11,6 +12,7 @@ const Loan = () => {
   const [error, setError] = useState(null);
   const productDetailsUrl = `${baseUrl}/product-details`;
   const productsUrl = `${baseUrl}/products`;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +42,9 @@ const Loan = () => {
   if (error) {
     return <div>{error}</div>;
   }
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`);
+  };
 
   return (
     <div className="container mb-2 "  style={{  backgroundImage: 'url(https://wallpapercave.com/wp/wp3589868.jpg)' }}>
@@ -51,7 +56,8 @@ const Loan = () => {
               .filter((detail) => detail.product === product.id)
               .map((detail, index) => (
                 <div className="col-md-3 mb-2" key={index}>
-                  <div className="card border-0 shadow-sm rounded">
+                  <div className="card border-0 shadow-sm rounded"
+                   onClick={() => handleProductClick(detail.id)}>
                     <div className="card-header bg-white border-0 text-center py-3">
                       <div className="d-flex flex-column align-items-center">
                         <div className="mb-3">

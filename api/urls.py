@@ -17,6 +17,7 @@ urlpatterns = [
     path('posts/', views.PostList.as_view(), name='posts'),
     path('products/', views.ProductList.as_view(), name='products'),
     path('product-details/', views.ProductDetailsList.as_view(), name='product_details'),
+    path('product-details/<int:pk>/', views.ProductDetail.as_view(), name='product-detail'),
     path('social-links/', views.SocialLinkList.as_view(), name='social_links'),
     path('tags/', views.TagList.as_view(), name='tags'),
     path('team-types/', views.Team_TypeList.as_view(), name='team_types'),
