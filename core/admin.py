@@ -96,8 +96,7 @@ class ProductDetailsAdmin(admin.ModelAdmin):
 
 @admin.register(InterestRate)
 class InterestRateAdmin(admin.ModelAdmin):
-    list_display = ('name', 'product_type', 'interest_rate')
-    search_fields = ('name',)
+    list_display = ('product_type', 'interest_rate', 'effective_date', 'end_date', 'created_at', 'updated_at')
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):

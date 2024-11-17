@@ -237,11 +237,11 @@ class ProductDetails(models.Model):
         return self.name
 
 class InterestRate(models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, default="Interest Rate")
     product_type = models.ForeignKey(ProductDetails, on_delete=models.CASCADE)
     interest_rate = models.DecimalField(max_digits=5, decimal_places=2)
     effective_date = models.DateField()
-    end_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

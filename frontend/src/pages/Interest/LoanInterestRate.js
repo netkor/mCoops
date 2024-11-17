@@ -5,34 +5,71 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 const LoanInterestRate = () => {
   const [loanInterestRates, setLoanInterestRates] = useState([]);
-  const loanInterestRatesUrl = `${baseUrl}/loan-interest-rates`;
+  const productsUrl = `${baseUrl}/products`;
+  const productDetailsUrl = `${baseUrl}/product-details`;
+  const interestRatesUrl = `${baseUrl}/interest-rates`;
 
   useEffect(() => {
-    axios.get(loanInterestRatesUrl)
-      .then(response => {
-        setLoanInterestRates(response.data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the loan interest rates!", error);
-      });
-  }, [loanInterestRatesUrl]);
+    const fetchData = async () => {
+      try {
+        const [productsResponse, productDetailsResponse, interestRatesResponse] = await Promise.all([
+          axios.get(productsUrl),
+          axios.get(productDetailsUrl),
+          axios.get(interestRatesUrl)
+        ]);
+
+        const products = productsResponse.data;
+        const productDetails = productDetailsResponse.data;
+        const interestRates = interestRatesResponse.data;
+
+        const loanInterestRates = interestRates.filter(rate => {
+          const productDetail = productDetails.find(detail => detail.id === rate.product_type);
+          const product = products.find(prod => prod.id === productDetail.product);
+          return product.name === 'कर्जा' && rate.end_date === null;
+        }).map(rate => {
+          const productDetail = productDetails.find(detail => detail.id === rate.product_type);
+          return {
+            ...rate,
+            name: productDetail.name,
+            minimum_deposit: productDetail.minimum_deposit,
+            term_length: productDetail.term_length
+          };
+        });
+
+        setLoanInterestRates(loanInterestRates);
+      } catch (error) {
+        console.error("There was an error fetching the data!", error);
+      }
+    };
+
+    fetchData();
+  }, [productsUrl, productDetailsUrl, interestRatesUrl]);
 
   return (
     <div className="container my-4">
-      <h2 className="text-center mb-4">Loan Interest Rates</h2>
-      <div className="row">
-        {loanInterestRates.map((rate, index) => (
-          <div className="col-md-4 mb-4" key={index}>
-            <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title">{rate.name}</h5>
-                <p className="card-text">Interest Rate: {rate.interest_rate}%</p>
-                <p className="card-text">Description: {rate.description}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <h2 className="text-center mb-4">Loan Interest Rates for "कर्जा"</h2>
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>क्र.सं.</th>
+            <th>ऋणकाे प्रकार</th>
+            <th>ऋण सीमा</th>
+            <th>अवधि</th>
+            <th>ब्याजदर</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loanInterestRates.map((rate, index) => (
+            <tr key={rate.id}>
+              <td>{index + 1}</td>
+              <td>{rate.name}</td>
+              <td>{rate.minimum_deposit}</td>
+              <td>{rate.term_length}</td>
+              <td>{rate.interest_rate}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
