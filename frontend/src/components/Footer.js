@@ -23,7 +23,7 @@ function Footer() {
   }, [settingsUrl]); // Include settingsUrl in the dependency array
 
   return (
-    <footer className="bg-dark text-light pt-5 pb-4">
+    <footer className="text-light pt-5 pb-4" style={{ backgroundColor: '#039103FF', }}>
       <div className="container">
         {settings && (
           <div className="row">
