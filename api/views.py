@@ -68,6 +68,17 @@ class NoticeList(APIView):
         notices = Notice.objects.all()
         serializer = NoticeSerializer(notices, many=True)
         return Response(serializer.data)
+    
+class NoticeDetail(APIView):
+    def get(self, request, pk):
+        try:
+            notice = Notice.objects.get(pk=pk)
+        except Notice.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = NoticeSerializer(notice)
+        return Response(serializer.data)    
+
 
 class PhotoList(APIView):
     def get(self, request):

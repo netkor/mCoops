@@ -22,6 +22,7 @@ import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import Notice from './pages/Notice';
 import ProductDetails from './pages/Product/ProductDetails';
+import NoticeDetails from './pages/NoticeDetails';
 
 
 
@@ -52,6 +53,8 @@ function App() {
             <Route path="/notice" element={<Notice />} />           
             <Route path="/product/:id" element={<ProductDetails />} />
             {/* Add more routes as needed */}
+            <Route path="/notice/:id" element={<NoticeDetails />} />           
+
 
 
             

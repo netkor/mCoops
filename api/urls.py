@@ -12,6 +12,7 @@ urlpatterns = [
     path('financial-reports/', views.FinancialReportList.as_view(), name='financial_reports'),
     path('interest-rates/', views.InterestRateList.as_view(), name='interest_rates'),
     path('notices/', views.NoticeList.as_view(), name='notices'),
+    path('notices/<int:pk>/', views.NoticeDetail.as_view(), name='notice-detail'),
     path('photos/', views.PhotoList.as_view(), name='photos'),
     path('popups/', views.PopupList.as_view(), name='popups'),
     path('posts/', views.PostList.as_view(), name='posts'),
@@ -23,4 +24,5 @@ urlpatterns = [
     path('team-types/', views.Team_TypeList.as_view(), name='team_types'),
     path('teams/', views.TeamList.as_view(), name='teams'),
     path('testimonials/', views.TestimonialList.as_view(), name='testimonials'),
+
 ]
