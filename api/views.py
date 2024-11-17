@@ -7,14 +7,14 @@ from rest_framework import status
 from core.models import (
     Setting, Slider, Category, ContactMessage, Download, FinancialReportType, FinancialReport, 
     InterestRate, Notice, Photo, Popup, Post, Product, ProductDetails, SocialLink, 
-    Tag, Team_Type, Team, Testimonial
+    Tag, Team_Type, Team, Testimonial, Collection
 )
 from .serializers import (
     SettingSerializer, SliderSerializer, CategorySerializer, ContactMessageSerializer, DownloadSerializer, 
     FinancialReportTypeSerializer, FinancialReportSerializer, InterestRateSerializer, 
     NoticeSerializer, PhotoSerializer, PopupSerializer, PostSerializer, ProductSerializer, 
     ProductDetailsSerializer, SocialLinkSerializer, TagSerializer, Team_TypeSerializer, 
-    TeamSerializer, TestimonialSerializer
+    TeamSerializer, TestimonialSerializer, CollectionSerializer
 )
 class SettingList(APIView):
     def get(self, request):
@@ -79,6 +79,11 @@ class NoticeDetail(APIView):
         serializer = NoticeSerializer(notice)
         return Response(serializer.data)    
 
+class CollectionList(APIView):
+    def get(self, request):
+        collections = Collection.objects.all()
+        serializer = CollectionSerializer(collections, many=True)
+        return Response(serializer.data)
 
 class PhotoList(APIView):
     def get(self, request):
@@ -149,3 +154,5 @@ class TestimonialList(APIView):
         testimonials = Testimonial.objects.all()
         serializer = TestimonialSerializer(testimonials, many=True)
         return Response(serializer.data)
+
+    
