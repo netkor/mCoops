@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Modal, Button } from 'react-bootstrap';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 const baseFileUrl = process.env.REACT_APP_IMAGE_URL;
@@ -10,10 +9,9 @@ const Gallery = () => {
   const [collections, setCollections] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(null);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [modalSize, setModalSize] = useState('lg'); // Control modal size
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -47,11 +45,11 @@ const Gallery = () => {
   const handleCollectionClick = (collection) => {
     setSelectedCollection(collection);
     setCurrentPhotoIndex(0);
-    setShowModal(true);
+    setShowOverlay(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseOverlay = () => {
+    setShowOverlay(false);
     setSelectedCollection(null);
   };
 
@@ -63,12 +61,8 @@ const Gallery = () => {
     setCurrentPhotoIndex((prevIndex) => (prevIndex - 1 + selectedCollection.photos.length) % selectedCollection.photos.length);
   };
 
-  const handleResizeModal = (size) => {
-    setModalSize(size);
-  };
-
   return (
-    <div className="container my-4">
+    <div className="container-fluid my-4">
       <h2 className="text-center mb-4">Gallery</h2>
 
       {/* Loading Message */}
@@ -82,16 +76,16 @@ const Gallery = () => {
         <div className="row">
           {collections.map((collection, index) => (
             <div className="col-md-4 mb-4" key={index}>
-              <div className="card h-100" onClick={() => handleCollectionClick(collection)}>
+              <div className="card h-400px" onClick={() => handleCollectionClick(collection)}>
                 {collection.photos.length > 0 && (
                   <img
                     src={`${baseFileUrl}${collection.photos[0].large_image}`}
                     className="card-img-top"
                     alt={collection.name}
-                    style={{ objectFit: 'cover', height: '200px' }}
+                    style={{ objectFit: 'fit', height: '300px' }}
                   />
                 )}
-                <div className="card-body">
+                <div className="card-body d-flex flex-column">
                   <h5 className="card-title text-center">{collection.name}</h5>
                 </div>
               </div>
@@ -100,41 +94,38 @@ const Gallery = () => {
         </div>
       )}
 
-      {/* Photos Modal */}
-      {selectedCollection && (
-        <Modal show={showModal} onHide={handleCloseModal} centered size={modalSize}>
-          <Modal.Header closeButton>
-            <Modal.Title>{selectedCollection.name}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body className="text-center">
-            <img
-              src={`${baseFileUrl}${selectedCollection.photos[currentPhotoIndex].large_image}`}
-              alt={selectedCollection.photos[currentPhotoIndex].title}
-              className="img-fluid rounded"
-            />
-            <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2 mt-2">
-              <h5>{selectedCollection.photos[currentPhotoIndex].title}</h5>
-              <p>{selectedCollection.photos[currentPhotoIndex].description}</p>
+      {/* Photos Overlay */}
+      {selectedCollection && showOverlay && (
+        <div className="modal fade show d-block" tabIndex="-1" role="dialog" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
+          <div className="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">{selectedCollection.name}</h5>
+                <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseOverlay}></button>
+              </div>
+              <div className="modal-body text-center">
+                <img
+                  src={`${baseFileUrl}${selectedCollection.photos[currentPhotoIndex].large_image}`}
+                  alt={selectedCollection.photos[currentPhotoIndex].title}
+                  className="img-fluid rounded"
+                  style={{ height: '80vh', objectFit: 'cover' }}
+                />
+                <div className="carousel-caption bg-dark bg-opacity-50 rounded p-2 mt-2">
+                  <h5>{selectedCollection.photos[currentPhotoIndex].title}</h5>
+                  <p>{selectedCollection.photos[currentPhotoIndex].description}</p>
+                </div>
+              </div>
+              <div className="modal-footer d-flex justify-content-between">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevPhoto}>
+                  Previous
+                </button>
+                <button type="button" className="btn btn-primary" onClick={handleNextPhoto}>
+                  Next
+                </button>
+              </div>
             </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handlePrevPhoto}>
-              Previous
-            </Button>
-            <Button variant="primary" onClick={handleNextPhoto}>
-              Next
-            </Button>
-            <Button variant="info" onClick={() => handleResizeModal('sm')}>
-              Small
-            </Button>
-            <Button variant="info" onClick={() => handleResizeModal('lg')}>
-              Large
-            </Button>
-            <Button variant="info" onClick={() => handleResizeModal('xl')}>
-              Extra Large
-            </Button>
-          </Modal.Footer>
-        </Modal>
+          </div>
+        </div>
       )}
     </div>
   );
