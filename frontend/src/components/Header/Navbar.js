@@ -1,35 +1,14 @@
 // Navbar.js
 import React, { useState, useEffect } from 'react';
-import Logo from './Header/Logo';
-import NavItem from './Header/NavItem';
-import Dropdown from './Header/Dropdown';
-// import OpeningHours from './Header/OpeningHours';
-import axios from 'axios';
-import OpeningHours from './Header/OpeningHours';
-import Phones from './Header/Phone';
-import Location from './Header/Location';
-import TopSection from './Header/TopSection';
-import TopSectionBar from './Header/TopSectionBar';
+import Logo from './Logo';
+import NavItem from './NavItem';
+import Dropdown from './Dropdown';
+import OpeningHours from './OpeningHours';
 
-
-const Navbar = () => {
-  const [settings, setSettings] = useState({});
+const Navbar = ({ settings, imageUrl }) => {
   const [scrolled, setScrolled] = useState(false);
-  const baseUrl = process.env.REACT_APP_API_URL;
-  const imageUrl = process.env.REACT_APP_IMAGE_URL;
-  const settingsUrl = `${baseUrl}/settings`;
 
   useEffect(() => {
-    axios.get(settingsUrl)
-      .then(response => {
-        if (response.data.length > 0) {
-          setSettings(response.data[0]);
-        }
-      })
-      .catch(error => {
-        console.error("There was an error fetching the settings!", error);
-      });
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -38,7 +17,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [settingsUrl]);
+  }, []);
 
   const aboutItems = [
     { to: '/introduction', label: 'Introduction' },
@@ -63,35 +42,12 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="border-bottom">
-      {/* Top Section */}
-      <div className="container">
-      <TopSectionBar settings={settings} />
-
-        <div className="d-flex justify-content-between align-items-center">
-
-          {/* Logo and Organization Name */}
-        <TopSection settings={settings} logo={settings.logo} imageUrl={imageUrl} />
-
-          {/* Contact Info */}
-          <div className="d-flex align-items-center gap-3">
-            {/* Location */}
-           <Location location={settings.location} />
-
-            {/* Phone */}
-            <Phones location={settings.phone} />
-
-            {/* Opening Hours */}
-            <OpeningHours hours={settings.opening_hours} />
-
-          </div>
-        </div>
-      </div>
+    <header>
+      <OpeningHours />
       <hr />
-     {/* Navbar Section */}
-     <nav className={`navbar navbar-expand-lg navbar-light bg-light ${scrolled ? 'fixed-top opacity-40' : ''}`}>
+      <nav className={`navbar navbar-expand-lg navbar-light bg-light ${scrolled ? 'fixed-top opacity-50' : ''}`}>
         <div className="container">
-          {scrolled && <Logo logo={settings.logo} imageUrl={imageUrl} />}
+          <Logo logo={settings.logo} imageUrl={imageUrl} />
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
