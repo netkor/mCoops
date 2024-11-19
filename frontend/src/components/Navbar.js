@@ -45,6 +45,9 @@ const Navbar = () => {
     { to: "/message-from-director", label: "Message from Directors" },
     { to: "/board-of-directors", label: "Board of Members" },
     { to: "/our-teams", label: "Our Team" },
+  ];
+
+  const financialsItems = [
     { to: "/our-financials", label: "Our Financials" },
     { to: "/barsik-pratibedan-2081/", label: "Annual Report" },
   ];
@@ -113,17 +116,18 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
               <ul className="navbar-nav">
                 <NavItem to="/">Home</NavItem>
-                <NavItem to="/branches">Branch</NavItem>
-                <NavItem to="/download">Download</NavItem>
                 <Dropdown title="About" items={aboutItems} />
-                <NavItem to="/contact">Contact</NavItem>
-                <NavItem to="/gallery">Gallery</NavItem>
-                <NavItem to="/notice">Notice</NavItem>
+                <NavItem to="/branches">Branch</NavItem>
+                <Dropdown title="Our Financials" items={financialsItems} />
                 <Dropdown title="Interest Rate" items={interestRateItems} />
                 <Dropdown
                   title="Product & Services"
                   items={productServicesItems}
                 />
+                <NavItem to="/notice">Notice</NavItem>
+                <NavItem to="/gallery">Gallery</NavItem>
+                <NavItem to="/download">Download</NavItem>
+                <NavItem to="/contact">Contact</NavItem>
               </ul>
             </div>
           </div>
