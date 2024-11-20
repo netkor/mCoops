@@ -22,12 +22,12 @@ const Message = () => {
     <div className="container my-4">
       <div className="row">
         {teams.map((team, index) => (
-          <div className="col-md-4 mb-2" key={index}>
-            <div className="card h-100 text-center shadow">
+          <div className="mb-2 col-md-4" key={index}>
+            <div className="text-center shadow card h-100">
               <div className="mt-3">
                 <img
                   src={`${imageUrl}${team.image}`}
-                  className="rounded-circle shadow"
+                  className="shadow rounded-circle"
                   alt={team.name}
                   style={{
                     width: "120px",
@@ -38,7 +38,7 @@ const Message = () => {
               </div>
               <div className="card-body">
                 <h5 className="card-title">{team.title}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">{team.name}</h6>
+                <h6 className="mb-2 card-subtitle text-muted">{team.name}</h6>
                 <p className="card-text">
                   {team.message.length > 200 ? `${team.message.substring(0, 200)}...` : team.message}
                 </p>

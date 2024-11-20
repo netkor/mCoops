@@ -34,6 +34,7 @@ class Setting(models.Model):
     goal = models.TextField(default="Default Goal", null=True)
     objective = models.TextField(default="Default Objective", null=True)
     slogan = models.CharField(max_length=350, default="Default Slogan")
+    image= models.ImageField(upload_to='images/')
     OFFICE_TYPE_CHOICES = [
         ('head_office', 'Head Office'),
         ('branch_office', 'Branch Office'),

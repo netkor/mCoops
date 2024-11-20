@@ -23,7 +23,7 @@ function Footer() {
   }, [settingsUrl]); // Include settingsUrl in the dependency array
 
   return (
-    <footer className="text-light pt-5 pb-4" style={{ backgroundColor: '#039103FF', }}>
+    <footer className="pt-5 pb-4 text-light" style={{ backgroundColor: '#039103FF', }}>
       <div className="container">
         {settings && (
           <div className="row">
@@ -50,7 +50,7 @@ function Footer() {
             <div className="col-md-4">
               <h5>Newsletter Signup</h5>
               <form>
-                <div className="input-group mb-3">
+                <div className="mb-3 input-group">
                   <input type="email" className="form-control" placeholder="Your email" aria-label="Your email" aria-describedby="button-addon2" />
                   <button className="btn btn-primary" type="button" id="button-addon2">Subscribe</button>
                 </div>
@@ -63,8 +63,8 @@ function Footer() {
           </div>
         )}
         {/* Language Switcher (if applicable) */}
-        <div className="row mt-4">
-          <div className="col text-center">
+        <div className="mt-4 row">
+          <div className="text-center col">
             <button className="btn btn-secondary">Switch Language</button>
           </div>
         </div>

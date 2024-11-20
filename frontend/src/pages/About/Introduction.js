@@ -10,25 +10,25 @@ const Introduction = () => {
     <div className="container my-4" style={{  backgroundImage: 'url(https://wallpapercave.com/wp/wp3589868.jpg)' }}>
       <div className="row">
         <div className="col-md-8">
-          <IntroductionMessage />
+          <IntroductionMessage  />
         </div>
         <div className="col-md-4">
-          <div className="row mb-4">
+          <div className="mb-4 row">
             <div className="col-12">
               <Vision />
             </div>
           </div>
-          <div className="row mb-4">
+          <div className="mb-4 row">
             <div className="col-12">
               <Mission />
             </div>
           </div>
-          <div className="row mb-4">
+          <div className="mb-4 row">
             <div className="col-12">
               <Goals />
             </div>
           </div>
-          <div className="row mb-4">
+          <div className="mb-4 row">
             <div className="col-12">
               <Objective />
             </div>
