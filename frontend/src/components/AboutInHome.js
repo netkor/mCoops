@@ -43,7 +43,7 @@ function AboutInHome() {
                         className="mb-3 rounded img-fluid float-md-start me-3"
                         style={{ maxWidth: "300px" }}
                       />
- <p style={{ textAlign: "justify" }}>
+                      <p style={{ textAlign: "justify" }}>
                         {settings.about.length > 2000
                           ? `${settings.about.substring(0, 2000)}...`
                           : settings.about}
@@ -52,6 +52,9 @@ function AboutInHome() {
                         <button
                           className="btn btn-success"
                           style={{ backgroundColor: "green", color: "white" }}
+                          onClick={() => {
+                            window.location.href = "/introduction";
+                          }}
                         >
                           Read More
                         </button>
