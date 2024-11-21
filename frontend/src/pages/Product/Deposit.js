@@ -88,9 +88,9 @@ const Deposit = () => {
                       <h6 className="fw-bold text-dark">
                         Interest Rate: {getInterestRatesForProduct(detail.id).map(rate => rate.interest_rate).join(', ')}%
                       </h6>
-                      <a href="/test" className="text-success text-decoration-none">
+                      <button onClick={() => handleProductClick(product.id)} className="btn btn-link text-success text-decoration-none p-0">
                         थप पढ्नुहोस् <i className="bi bi-arrow-right"></i>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
