@@ -41,6 +41,11 @@ class InterestRateSerializer(serializers.ModelSerializer):
         model = InterestRate
         fields = '__all__'
 
+class InterestRateDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InterestRate
+        fields = ('id', 'interest_rate', 'effective_date', 'end_date')
+
 class NoticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notice

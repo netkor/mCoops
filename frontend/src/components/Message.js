@@ -17,11 +17,19 @@ const Message = () => {
         console.error("There was an error fetching the team data!", error);
       });
   }, [teamsUrl]);
+  const [filteredTeams, setFilteredTeams] = useState([]);
 
+  useEffect(() => {
+    const featuredTeams = teams
+      .filter(team => team.is_message_featured)
+      .sort((a, b) => a.message_order_by - b.message_order_by);
+    setFilteredTeams(featuredTeams);
+  }, [teams]);
   return (
     <div className="container my-4">
+    <h2 className='text-center'>Message</h2>
       <div className="row">
-        {teams.map((team, index) => (
+        {filteredTeams.map((team, index) => (
           <div className="mb-2 col-md-4" key={index}>
             <div className="text-center shadow card h-100">
               <div className="mt-3">

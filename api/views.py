@@ -14,7 +14,7 @@ from .serializers import (
     FinancialReportTypeSerializer, FinancialReportSerializer, InterestRateSerializer, 
     NoticeSerializer, PhotoSerializer, PopupSerializer, PostSerializer, ProductSerializer, 
     ProductDetailsSerializer, SocialLinkSerializer, TagSerializer, Team_TypeSerializer, 
-    TeamSerializer, TestimonialSerializer, CollectionSerializer
+    TeamSerializer, TestimonialSerializer, CollectionSerializer, InterestRateDetailSerializer
 )
 class SettingList(APIView):
     def get(self, request):
@@ -61,6 +61,12 @@ class InterestRateList(APIView):
     def get(self, request):
         interest_rates = InterestRate.objects.all()
         serializer = InterestRateSerializer(interest_rates, many=True)
+        return Response(serializer.data)
+    
+class InterestRateDetail(APIView):
+    def get(self, request, pk):
+        interest_rate = InterestRate.objects.filter(product_type_id=pk, end_date__isnull=True)
+        serializer = InterestRateDetailSerializer(interest_rate, many=True)
         return Response(serializer.data)
 
 class NoticeList(APIView):

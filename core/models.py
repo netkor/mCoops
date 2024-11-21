@@ -19,18 +19,18 @@ def validate_lowercase(string):
 class Setting(models.Model):
     name= models.CharField(max_length=250, default="Site Name")
     name_np= models.CharField(max_length=350, default="Site Name", null=True)
-    address = models.CharField(max_length=255, default="Default Address")
+    address = models.CharField(max_length=255, default="Default Address", null=True)
     address_np = models.CharField(max_length=355, default="Default Address", null=True)
-    phone= models.CharField(max_length=150, default="977")
-    phone1 = models.CharField(max_length=150, default="977")
-    landline = models.CharField(max_length=150, default="977")
-    landline1 = models.CharField(max_length=150, default="977")
-    email= models.EmailField( blank=True, null=True)
+    phone= models.CharField(max_length=150, default="977", null=True)
+    phone1 = models.CharField(max_length=150, default="977", null=True)
+    landline = models.CharField(max_length=150, default="977", null=True)
+    landline1 = models.CharField(max_length=150, default="977", null=True)
+    email= models.EmailField(blank=True, null=True)
     map_url = models.URLField(blank=True, null=True)
-    logo = models.ImageField(upload_to='logos/')
-    about = models.TextField(default="Default About")
-    mission = models.TextField(default="Default Mission")
-    vision = models.TextField(default="Default Vision")
+    logo = models.ImageField(upload_to='logos/', null=True)
+    about = models.TextField(default="Default About", null=True)
+    mission = models.TextField(default="Default Mission", null=True)
+    vision = models.TextField(default="Default Vision", null=True)
     goal = models.TextField(default="Default Goal", null=True)
     objective = models.TextField(default="Default Objective", null=True)
     slogan = models.CharField(max_length=350, default="Default Slogan")
@@ -55,17 +55,17 @@ class Setting(models.Model):
 class SocialLink(models.Model):
     setting = models.ForeignKey(Setting, related_name="social_links", on_delete=models.CASCADE)
     platform = models.CharField(max_length=50)  # e.g., Facebook, Twitter
-    icon = models.ImageField(upload_to='social_icons/')
+    icon = models.ImageField(upload_to='social_icons/', null=True)
     url = models.URLField()  # Link to the social page
 
     def __str__(self):
         return f"{self.platform} link"
     
 class Slider(models.Model):
-    title = models.CharField(max_length=150)
-    description = models.TextField()
+    title = models.CharField(max_length=150, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='sliders/')
-    link = models.URLField()
+    link = models.URLField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -87,7 +87,7 @@ class Testimonial(models.Model):
         return self.name
 class Team_Type(models.Model):
     name = models.CharField(max_length=150)
-    description = models.TextField()
+    description = models.TextField(null=True)
     order_by = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -100,14 +100,16 @@ class Team(models.Model):
     name = models.CharField(max_length=250)
     name_np = models.CharField(max_length=350, null=True)
     phone = models.CharField(max_length=150)
-    email = models.EmailField()
+    email = models.EmailField(null=True)
     team_type = models.ForeignKey(Team_Type, on_delete=models.CASCADE)
     position = models.CharField(max_length=150)
-    description = models.TextField()
-    message = models.TextField()
-    image = models.ImageField(upload_to='teams/')
-    session = models.CharField(max_length=150)
+    description = models.TextField(null=True)
+    message = models.TextField(null=True)
+    image = models.ImageField(upload_to='teams/', null=True)
+    session = models.CharField(max_length=150,null=True)
     order_by = models.IntegerField(null=True, blank=True)
+    is_message_featured = models.BooleanField(default=False)
+    message_order_by = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -117,7 +119,7 @@ class Team(models.Model):
 
 class FinancialReportType(models.Model):
     name = models.CharField(max_length=150)
-    description = models.TextField()
+    description = models.TextField(null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -129,9 +131,9 @@ class FinancialReport(models.Model):
     title = models.CharField(max_length=150)
     title_np = models.CharField(max_length=350, null=True)
     financial_report_type = models.ForeignKey(FinancialReportType, on_delete=models.CASCADE)
-    description = models.TextField()
-    image = models.ImageField(upload_to='financial_reports/')
-    file = models.FileField(upload_to='financial_reports/')
+    description = CKEditor5Field('Text', config_name='extends', null=True)
+    image = models.ImageField(upload_to='financial_reports/', null=True)
+    file = models.FileField(upload_to='financial_reports/', null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -141,8 +143,8 @@ class FinancialReport(models.Model):
     
 class Notice(models.Model):
     title = models.CharField(max_length=150)
-    description = models.TextField()
-    image = models.ImageField(upload_to='notices/')
+    description = CKEditor5Field('Text', config_name='extends', null=True)
+    image = models.ImageField(upload_to='notices/', null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -152,7 +154,7 @@ class Notice(models.Model):
     
 class Download(models.Model):
     title = models.CharField(max_length=150)
-    description = models.TextField()
+    description = models.TextField(null=True)
     file = models.FileField(upload_to='downloads/')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -162,10 +164,10 @@ class Download(models.Model):
         return self.title
 
 class Popup(models.Model):
-    title = models.CharField(max_length=150,default="Popup Title")
-    description = models.TextField(default="Popup Description")
+    title = models.CharField(max_length=150,default="Popup Title", null=True)
+    description = models.TextField(default="Popup Description", null=True)
     image = models.ImageField(upload_to='popups/')
-    link = models.URLField()
+    link = models.URLField(null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -175,7 +177,7 @@ class Popup(models.Model):
     
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True)
     order = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -223,13 +225,13 @@ class Product(models.Model):
         return self.name
 class ProductDetails(models.Model):
     name = models.CharField(max_length=150)
-    description = models.TextField()
+    description = CKEditor5Field('Text', config_name='extends', null=True, blank=True) 
     banner = models.ImageField(upload_to='products/')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    minimum_deposit = models.DecimalField(max_digits=10, decimal_places=2)
-    withdrawal_policy = models.TextField()
-    term_length = models.IntegerField()
-    is_renewable = models.BooleanField(default=False)
+    minimum_deposit = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    withdrawal_policy = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
+    term_length = models.IntegerField(null=True, blank=True)
+    is_renewable = models.BooleanField(default=False, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

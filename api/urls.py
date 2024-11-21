@@ -11,6 +11,7 @@ urlpatterns = [
     path('financial-report-types/', views.FinancialReportTypeList.as_view(), name='financial_report_types'),
     path('financial-reports/', views.FinancialReportList.as_view(), name='financial_reports'),
     path('interest-rates/', views.InterestRateList.as_view(), name='interest_rates'),
+    path('interest-rates/<int:pk>/', views.InterestRateDetail.as_view(), name='interest_rate-detail'),
     path('notices/', views.NoticeList.as_view(), name='notices'),
     path('notices/<int:pk>/', views.NoticeDetail.as_view(), name='notice-detail'),
     path('photos/', views.PhotoList.as_view(), name='photos'),

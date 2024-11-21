@@ -1,42 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [productDetail, setProductDetail] = useState(null);
   const [otherProducts, setOtherProducts] = useState([]);
+  const [interestRates, setInterestRates] = useState(location.state?.interestRates || []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProductDetail = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/product-details/${id}`);
-        setProductDetail(response.data);
+        const [productDetailResponse, otherProductsResponse, interestRatesResponse] = await Promise.all([
+          axios.get(`${baseUrl}/product-details/${id}`),
+          axios.get(`${baseUrl}/product-details`),
+          axios.get(`${baseUrl}/interest-rates/${id}/`)
+        ]);
+
+        setProductDetail(productDetailResponse.data);
+        setOtherProducts(otherProductsResponse.data.filter(product => product.id !== parseInt(id)));
+        setInterestRates(interestRatesResponse.data.filter(rate => rate.end_date === null));
         setLoading(false);
       } catch (error) {
-        console.error('There was an error fetching the product details!', error);
-        setError('There was an error fetching the product details!');
+        console.error('There was an error fetching the data!', error);
+        setError('There was an error fetching the data!');
         setLoading(false);
       }
     };
 
-    const fetchOtherProducts = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/product-details`);
-        setOtherProducts(response.data.filter(product => product.id !== parseInt(id)));
-      } catch (error) {
-        console.error('There was an error fetching the other products!', error);
-      }
-    };
-
-    fetchProductDetail();
-    fetchOtherProducts();
+    fetchData();
   }, [id]);
+
+  const handleProductClick = async (productId) => {
+    try {
+      const response = await axios.get(`${baseUrl}/interest-rates/${productId}/`);
+      const interestRates = response.data.filter(rate => rate.end_date === null);
+      navigate(`/product/${productId}`, { state: { interestRates } });
+    } catch (error) {
+      console.error('There was an error fetching the interest rates!', error);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -51,11 +61,11 @@ const ProductDetails = () => {
       <div className="row">
         <div className="col-md-8">
           {productDetail && (
-            <div className="card h-100 text-center shadow">
+            <div className="card h-100 shadow">
               <div className="mt-3">
                 <img
                   src={`${imageUrl}${productDetail.banner}`}
-                  className="img-fluid"
+                  className="img-fluid mx-auto d-block"
                   alt={productDetail.name}
                   style={{
                     width: '50%',
@@ -64,9 +74,29 @@ const ProductDetails = () => {
                 />
               </div>
               <div className="card-body">
-                <h5 className="card-title"><strong>{productDetail.name}</strong></h5>
-                <h6 className="card-subtitle mb-2 text-muted justify " >{productDetail.description}</h6>
-                <p className="card-text justify">{productDetail.withdrawal_policy}</p>
+                <h5 className="card-title text-center"><strong>{productDetail.name}</strong></h5>
+                  {interestRates.length > 0 && (
+                  <>
+                    <h5 className="mt-4">Interest Rates</h5>
+                    <table className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Effective Date</th>
+                          <th>Interest Rate</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {interestRates.map((rate, index) => (
+                          <tr key={index}>
+                            <td>{rate.effective_date}</td>
+                            <td>{rate.interest_rate}%</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </>
+                )}
+                <p className="card-text justify" dangerouslySetInnerHTML={{ __html: productDetail.description }}></p>
               </div>
             </div>
           )}
@@ -75,7 +105,7 @@ const ProductDetails = () => {
           <h4 className="text-center">Other Products</h4>
           <ul className="list-group">
             {otherProducts.map((product) => (
-              <li className="list-group-item" key={product.id}>
+              <li className="list-group-item" key={product.id} onClick={() => handleProductClick(product.id)}>
                 <div className="d-flex align-items-center">
                   <img
                     src={`${imageUrl}${product.banner}`}
@@ -85,7 +115,6 @@ const ProductDetails = () => {
                   />
                   <div>
                     <h6 className="mb-0">{product.name}</h6>
-                    <small className="text-muted">{product.description.substring(0, 50)}...</small>
                   </div>
                 </div>
               </li>
