@@ -23,7 +23,7 @@ function Footer() {
   }, [settingsUrl]); // Include settingsUrl in the dependency array
 
   return (
-    <footer className="pt-5 pb-4 text-light" style={{ backgroundColor: '#039103FF', }}>
+    <footer className="pt-5 pb-4 text-light bg-success">
       <div className="container">
         {settings && (
           <div className="row">
@@ -62,12 +62,8 @@ function Footer() {
             </div>
           </div>
         )}
-        {/* Language Switcher (if applicable) */}
-        <div className="mt-4 row">
-          <div className="text-center col">
-            <button className="btn btn-secondary">Switch Language</button>
-          </div>
-        </div>
+       
+       
       </div>
     </footer>
   );

@@ -23,6 +23,7 @@ import Gallery from './pages/Gallery';
 import Notice from './pages/Notice';
 import ProductDetails from './pages/Product/ProductDetails';
 import NoticeDetails from './pages/NoticeDetails';
+import PoweredBy from './components/PoweredBy';
 
 
 
@@ -62,6 +63,7 @@ function App() {
           </Routes>
         </div>
         <Footer />
+        <PoweredBy />
       </div>
     </Router>
   );
