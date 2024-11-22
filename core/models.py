@@ -66,6 +66,8 @@ class Slider(models.Model):
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='sliders/')
     link = models.URLField(null=True, blank=True)
+    display_order = models.IntegerField(null=True, blank=True)
+    display_title = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -168,12 +170,16 @@ class Popup(models.Model):
     description = models.TextField(default="Popup Description", null=True)
     image = models.ImageField(upload_to='popups/')
     link = models.URLField(null=True)
+    display_order = models.IntegerField(null=True, blank=True)
+    display_title = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+    
+
     
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -315,7 +321,7 @@ class Photo(models.Model):
     def thumbnail_img_tag(self):
         return mark_safe('<img src="{}" />'.format(self.thumbnail.url))
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, default="title")
 
     slug_guidelines = "Enter a unique, descriptive URL path (e.g. based on the title) containing " \
                       "only lowercase letters, numbers,  and hyphens (instead of spaces). "
@@ -325,10 +331,10 @@ class Photo(models.Model):
                             help_text=slug_guidelines,
                             validators=[validate_slug, validate_lowercase])
 
-    description = models.TextField(max_length=5000)
+    description = models.TextField(max_length=5000, default="description", blank=True) 
 
     loc_guidelines = "Enter the specific location where the photo was taken."
-    location = models.CharField(max_length=255, help_text=loc_guidelines)
+    location = models.CharField(max_length=255, help_text=loc_guidelines, default="location", blank=True)
 
     date_taken = models.DateField()
 
