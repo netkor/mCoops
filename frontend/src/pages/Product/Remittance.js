@@ -1,47 +1,65 @@
-import React from "react";
-import imeLogo from "../../remittances/ime.png";
-import himalRemitLogo from "../../remittances/new himalremit.png";
-import prabhuLogo from "../../remittances/prabhu.png";
-import cityExpressLogo from "../../remittances/city expre.png";
-import prithiviLogo from "../../remittances/Prithvi-Ramittance-300x150.jpg";
-import samsaraLogo from "../../remittances/samsara.png";
-import moneygramLogo from "../../remittances/newmoneygram.png";
-import westernUnionLogo from "../../remittances/westren_union.jpg";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const baseUrl = process.env.REACT_APP_API_URL;
+const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 const Remittance = () => {
-  const remittanceLogos = [
-    { src: imeLogo, alt: "IME", title: "IME" },
-    { src: himalRemitLogo, alt: "Himal Remit", title: "Himal Remit" },
-    { src: prabhuLogo, alt: "Prabhu Money Transfer", title: "Prabhu Money Transfer" },
-    { src: cityExpressLogo, alt: "City Express", title: "City Express" },
-    { src: prithiviLogo, alt: "Prithivi Remit", title: "Prithivi Remit" },
-    { src: samsaraLogo, alt: "Samsara Remit", title: "Samsara Remit" },
-    { src: moneygramLogo, alt: "MoneyGram", title: "MoneyGram" },
-    { src: westernUnionLogo, alt: "Western Union", title: "Western Union" },
-  ];
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        setLoading(true);
+        const collectionsResponse = await axios.get(`${baseUrl}/collections`);
+        const remittanceCollection = collectionsResponse.data.find(
+          collection => collection.name.toLowerCase() === 'remittance'.toLowerCase()
+        );
+
+        if (remittanceCollection) {
+          const photosResponse = await axios.get(`${baseUrl}/photos`);
+          // Filter photos where slug matches 'remittance'
+          const remittanceImages = photosResponse.data.filter(photo => 
+            photo.slug.toLowerCase() === 'remittance'
+          );
+          
+          console.log('Filtered images:', remittanceImages);
+          setImages(remittanceImages);
+        } else {
+          setError('Remittance collection not found');
+        }
+      } catch (error) {
+        console.error('API Error:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!images.length) return <div>No images found in remittance collection</div>;
 
   return (
     <div className="container my-4">
-      {/* Header Section */}
-      <div className="text-center mb-4">
-        <h3 className="text-primary fw-bold">रेमिट्यान्स</h3>
-        <p className="text-muted">
-          संस्थामा सञ्चालित रेमिट्यान्स सेवाहरू
-        </p>
-      </div>
-
-      {/* Logos Grid */}
-      <div className="row g-4">
-        {remittanceLogos.map((logo, index) => (
-          <div className="col-6 col-md-3 text-center" key={index}>
-            <div className="p-3 border rounded shadow-sm">
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                title={logo.title}
-                className="img-fluid"
-                style={{ width: "150px", height: "100px", objectFit: "contain" }}
-              />
+      <h2 className="text-center mb-4">Remittance</h2>
+      <div className="row">
+        {images.map((image, index) => (
+          <div className="col-md-4 mb-4" key={image.id || index}>
+            <div className="card h-100 text-center shadow">
+              <div className="card-body">
+                <img
+                  src={`${imageUrl}${image.large_image}`}
+                  alt={image.title}
+                  className="img-fluid rounded shadow"
+                />
+                <h5 className="card-title mt-3">{image.title}</h5>
+              </div>
             </div>
           </div>
         ))}
