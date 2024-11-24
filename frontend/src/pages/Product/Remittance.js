@@ -47,18 +47,19 @@ const Remittance = () => {
 
   return (
     <div className="container my-4">
-      <h2 className="text-center mb-4">Remittance</h2>
+      <h2 className="mb-4 text-center">Remittance</h2>
       <div className="row">
         {images.map((image, index) => (
-          <div className="col-md-4 mb-4" key={image.id || index}>
-            <div className="card h-100 text-center shadow">
+          <div className="mb-4 col-md-4" key={image.id || index}>
+            <div className="text-center shadow card h-100"                     style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}
+            >
               <div className="card-body">
                 <img
                   src={`${imageUrl}${image.large_image}`}
                   alt={image.title}
-                  className="img-fluid rounded shadow"
+                  className="rounded shadow img-fluid"
                 />
-                <h5 className="card-title mt-3">{image.title}</h5>
+                <h5 className="mt-3 card-title">{image.title}</h5>
               </div>
             </div>
           </div>
