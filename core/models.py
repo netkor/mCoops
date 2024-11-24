@@ -156,6 +156,7 @@ class Notice(models.Model):
     
 class Download(models.Model):
     title = models.CharField(max_length=150)
+    cover = models.ImageField(upload_to='downloads/', null=True)
     description = models.TextField(null=True)
     file = models.FileField(upload_to='downloads/')
     is_active = models.BooleanField(default=True)
