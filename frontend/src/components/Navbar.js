@@ -69,7 +69,7 @@ const Navbar = () => {
     <header className="border-bottom">
       {/* Top Section */}
       <div className="container">
-        <div className="d-none d-lg-flex">
+        <div className="d-none d-lg-flex" >
           <TopSectionBar settings={settings} />
         </div>
         <div className="d-flex justify-content-between ">
@@ -99,6 +99,7 @@ const Navbar = () => {
           className={`navbar navbar-expand-lg navbar-dark bg-success py-1  ${
             scrolled ? "fixed-top opacity-20" : ""
           }`}
+          style={{ objectFit: "fill", borderRadius: "0 0 50px 0" }}
         >
           <div className="container">
             {scrolled && <Logo logo={settings.logo} imageUrl={imageUrl} />}

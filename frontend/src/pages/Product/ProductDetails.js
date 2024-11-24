@@ -57,15 +57,15 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="container my-4">
+    <div className="container my-4" >
       <div className="row">
         <div className="col-md-8">
           {productDetail && (
-            <div className="card h-100 shadow">
+            <div className="shadow card h-100" style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
               <div className="mt-3">
                 <img
                   src={`${imageUrl}${productDetail.banner}`}
-                  className="img-fluid mx-auto d-block"
+                  className="mx-auto img-fluid d-block"
                   alt={productDetail.name}
                   style={{
                     width: '50%',
@@ -74,7 +74,7 @@ const ProductDetails = () => {
                 />
               </div>
               <div className="card-body">
-                <h5 className="card-title text-center"><strong>{productDetail.name}</strong></h5>
+                <h5 className="text-center card-title"><strong>{productDetail.name}</strong></h5>
                   {interestRates.length > 0 && (
                   <>
                     <h5 className="mt-4">Interest Rates</h5>
@@ -103,15 +103,15 @@ const ProductDetails = () => {
         </div>
         <div className="col-md-4">
           <h4 className="text-center">Other Products</h4>
-          <ul className="list-group">
+          <ul className="list-group" style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
             {otherProducts.map((product) => (
               <li className="list-group-item" key={product.id} onClick={() => handleProductClick(product.id)}>
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center" style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
                   <img
                     src={`${imageUrl}${product.banner}`}
                     alt={product.name}
                     className="img-fluid me-3"
-                    style={{ width: '75px', height: '50px', objectFit: 'fit' }}
+                    style={{ width: '75px', height: '50px', objectFit: 'fit'  }}
                   />
                   <div>
                     <h6 className="mb-0">{product.name}</h6>

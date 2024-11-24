@@ -21,22 +21,24 @@ const Download = () => {
   return (
     <div className="container my-4">
       <h2 className="mb-4 text-center">Downloadable Files</h2>
-      <div className="row">
+      <div className="row justify-content-center">
         {downloads.map((download, index) => (
-          <div className="mb-3 card" key={index}>
-            <div className="row g-0">
-              <div className="col-md-4">
-                <img src={`${fileUrl}${download.cover}`} className="img-fluid rounded-start h-100" alt={download.title} style={{ objectFit: 'cover' }} />
+          <div className="mb-3 card" key={index} style={{ maxWidth: '1200px', height: '200px', borderRadius: '50px 0 50px 0' }}>
+            <div className="row g-0 h-100">
+              <div className="col-md-3 h-100">
+                <img src={`${fileUrl}${download.cover}`} className="img-fluid h-100" alt={download.title} style={{ objectFit: 'fill', borderRadius: '50px 0 50px 0' }} />
               </div>
               <div className="col-md-8">
                 <div className="card-body">
                   <h5 className="card-title">{download.title}</h5>
                   <p className="card-text">{download.description}</p>
-                  <p className="card-text"><small className="text-body-secondary">{download.created_at}</small></p>
-                  <a href={`${fileUrl}${download.file}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                    Download
-                  </a>
+                  <p className="text-sm text-gray-500">{new Date(download.created_at).toLocaleDateString()}</p>
                 </div>
+              </div>
+              <div className="col-md-1 d-flex align-items-center">
+                <a href={`${fileUrl}${download.file}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                  Download
+                </a>
               </div>
             </div>
           </div>

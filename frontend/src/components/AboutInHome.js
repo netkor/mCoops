@@ -30,7 +30,7 @@ function AboutInHome() {
       {settings ? (
         <div className="row">
           <div className="col-md-8">
-            <div className="p-2 mb-3 card">
+            <div className="p-2 mb-3 card"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
               <div className="container py-4">
                 {/* Main Section */}
                 <div className="mb-5 row">
@@ -66,9 +66,8 @@ function AboutInHome() {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="card">
               <div className="row g-0">
-                <div className="mt-1 mb-1 card text-bg-primary">
+                <div className="mt-1 mb-1 card text-bg-primary"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
                   <div className="card-header">
                     <strong>Vision</strong>
                   </div>
@@ -83,7 +82,7 @@ function AboutInHome() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-1 mb-1 card text-bg-danger">
+                <div className="mt-1 mb-1 card text-bg-danger"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
                   <div className="card-header">
                     <strong>Mission</strong>
                   </div>
@@ -98,7 +97,7 @@ function AboutInHome() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-1 mb-1 card text-bg-warning">
+                <div className="mt-1 mb-1 card text-bg-warning"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
                   <div className="card-header">
                     <strong>Goals</strong>
                   </div>
@@ -113,7 +112,7 @@ function AboutInHome() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-1 mb-1 card text-bg-secondary">
+                <div className="mt-1 mb-1 card text-bg-secondary"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
                   <div className="card-header">
                     <strong>Objective</strong>
                   </div>
@@ -129,7 +128,6 @@ function AboutInHome() {
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       ) : (

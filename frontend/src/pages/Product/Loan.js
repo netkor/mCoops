@@ -64,10 +64,12 @@ const Deposit = () => {
             {productDetails
               .filter((detail) => detail.product === product.id)
               .map((detail, index) => (
-                <div className="col-md-3 mb-2" key={index}>
-                  <div className="card border-0 shadow-sm rounded"
-                    onClick={() => handleProductClick(detail.id, getInterestRatesForProduct(detail.id))}>
-                    <div className="card-header bg-white border-0 text-center py-3">
+                <div className="mb-2 col-md-3" key={index}>
+                  <div className="border-0 shadow-sm card"
+                    onClick={() => handleProductClick(detail.id, getInterestRatesForProduct(detail.id))}
+                    style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}
+>
+                    <div className="py-3 text-center bg-white border-0 card-header">
                       <div className="d-flex flex-column align-items-center">
                         <div className="mb-3">
                           <img
@@ -76,19 +78,19 @@ const Deposit = () => {
                             style={{ height: "150px" }}
                           />
                         </div>
-                        <h5 className="text-success fw-bold mb-1">
+                        <h5 className="mb-1 text-success fw-bold">
                           {detail.name}
                         </h5>
                       </div>
                     </div>
-                    <div className="card-body text-center">
+                    <div className="text-center card-body">
                       <h6 className="fw-bold text-dark">
                         Minimum Deposit: {detail.minimum_deposit}
                       </h6>
                       <h6 className="fw-bold text-dark">
                         Interest Rate: {getInterestRatesForProduct(detail.id).map(rate => rate.interest_rate).join(', ')}%
                       </h6>
-                      <button onClick={() => handleProductClick(product.id)} className="btn btn-link text-success text-decoration-none p-0">
+                      <button onClick={() => handleProductClick(product.id)} className="p-0 btn btn-link text-success text-decoration-none">
                         थप पढ्नुहोस् <i className="bi bi-arrow-right"></i>
                       </button>
                     </div>

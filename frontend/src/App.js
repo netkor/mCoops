@@ -32,7 +32,7 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <div className="container mt-5" style={{  backgroundImage: 'url(https://wallpapercave.com/wp/wp3589868.jpg)' }}>
+        <div className="container mt-5" >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/introduction" element={<Introduction />} />

@@ -3,7 +3,7 @@ import React from 'react';
 
 const TopSectionBar = ({ settings }) => {
   return (
-    <div className="bg-danger text-white py-2">
+    <div className="py-2 text-white bg-danger"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
       <div className="container-fluid">
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex">

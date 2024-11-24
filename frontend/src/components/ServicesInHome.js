@@ -21,10 +21,10 @@ function ServicesInHome() {
       <h2 className='text-center'>Our Services</h2>
       <div className="row">
         {services.map((service, index) => (
-          <div className="col-md-4 mb-4" key={index}>
-            <div className="card h-100 text-center shadow" onClick={() => handleCardClick(service.path)}>
+          <div className="mb-4 col-md-4" key={index}>
+            <div className="text-center shadow card h-100" onClick={() => handleCardClick(service.path)}  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
               <div className="card-body">
-                <FontAwesomeIcon icon={service.icon} size="3x" className="mb-3" />
+                <FontAwesomeIcon icon={service.icon} size="3x" className="mb-3" color='green' />
                 <h5 className="card-title">{service.name}</h5>
               </div>
             </div>

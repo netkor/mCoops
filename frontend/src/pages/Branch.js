@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_API_URL;
+const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 const Branch = () => {
   const [branches, setBranches] = useState([]);
@@ -23,40 +24,54 @@ const Branch = () => {
 
   return (
     <div className="container my-4">
-      <h2 className="text-center mb-4">Branch Offices</h2>
-      <div className="row">
+      <h2 className="mb-4 text-center">Branch Offices</h2>
+      <div className="row justify-content-center">
         {branches.map((branch, index) => (
-          <div className="col-md-4 mb-4" key={index}>
+          <div className="mb-4 col-md-4" key={index}>
             <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title">{branch.name}</h5>
-                <p className="card-text">Location: {branch.address}</p>
-                <p className="card-text">Phone: {branch.phone}</p>
-                {branch.map_url && (
-                  <a href={branch.map_url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                    Locate on Map
-                  </a>
-                )}
+              <div className="row no-gutters">
+                <div className="col-md-5">
+                  <img src={`${imageUrl}/${branch.image}`} className="img-fluid rounded-start h-100" alt={branch.name} style={{ objectFit: 'cover', borderRadius: '15px 0 15px 0' }} />
+                </div>
+                <div className="col-md-7">
+                  <div className="card-body">
+                    <h5 className="card-title">{branch.name}</h5>
+                    <p className="card-text">Location: {branch.address}</p>
+                    <p className="card-text">Phone: {branch.phone}</p>
+                    {branch.map_url && (
+                      <a href={branch.map_url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                        Locate on Map
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-center mb-4">Collection Centers</h2>
+      <h2 className="mb-4 text-center">Collection Centers</h2>
       <div className="row">
         {collectionCenters.map((center, index) => (
-          <div className="col-md-4 mb-4" key={index}>
+          <div className="mb-4 col-md-4" key={index}>
             <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title">{center.name}</h5>
-                <p className="card-text">Location: {center.address}</p>
-                <p className="card-text">Phone: {center.phone}</p>
-                {center.map_url && (
-                  <a href={center.map_url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                    Locate on Map
-                  </a>
-                )}
+              <div className="row no-gutters">
+                <div className="col-md-5">
+                  <img src={`${imageUrl}/${center.image}`} className="cimg-fluid rounded-start h-100" alt={center.name}  style={{ objectFit: 'fill', borderRadius: '15px 0 15px 0' }}/>
+                </div>
+                <div className="col-md-7">
+                  <div className="card-body">
+                    <h5 className="card-title">{center.name}</h5>
+                    <p className="card-text">Location: {center.address}</p>
+                    <p className="card-text">Phone: {center.phone}</p>
+                    {center.map_url && (
+                      <a href={center.map_url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                        Locate on Map
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
