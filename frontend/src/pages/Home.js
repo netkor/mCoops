@@ -5,6 +5,7 @@ import ServicesInHome from '../components/ServicesInHome';
 import NoticesInHome from '../components/NoticesInHome';
 import Message from '../components/Message';
 import MobileBankingFeatured from '../components/MobileBankingFeatured';
+import Profile from '../components/Profile';
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
       <ServicesInHome />
       <MobileBankingFeatured />
       <AboutInHome />
+      <Profile />
       <ServicesInHome />
       <NoticesInHome />
     </div>
