@@ -18,7 +18,7 @@ function Slider() {
   }, []);
 
   return (
-    <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative' }}>
       <div className="carousel-indicators">
         {sliders.map((slider, index) => (
           <button
@@ -35,11 +35,16 @@ function Slider() {
       <div className="carousel-inner">
         {sliders.map((slider, index) => (
           <div key={slider.id} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-            <img src={`${imageUrl}${slider.image}`} className="d-block w-100" alt={slider.title} />
-            <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
+            <img
+              src={`${imageUrl}${slider.image}`}
+              className="d-block w-100"
+              style={{ height: '500px', objectFit: 'cover' }}
+              alt={slider.title}
+            />
+            <div className="p-3 bg-opacity-50 rounded carousel-caption d-none d-md-block bg-dark">
               <h5 className="text-white">{slider.title}</h5>
               <p className="text-white">{slider.description}</p>
-              {slider.link && <a href={slider.link} className="btn btn-primary">Learn More</a>}
+              {slider.link && <a href={slider.link} className="rounded btn btn-primary">Learn More</a>}
             </div>
           </div>
         ))}

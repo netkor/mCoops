@@ -6,11 +6,13 @@ import NoticesInHome from '../components/NoticesInHome';
 import Message from '../components/Message';
 import MobileBankingFeatured from '../components/MobileBankingFeatured';
 import Profile from '../components/Profile';
+import MarqueeNotice from '../components/MarqueeNotice';
 
 function Home() {
   return (
     <div>
       <Slider />
+      <MarqueeNotice />
       <Message />
       <ServicesInHome />
       <MobileBankingFeatured />
