@@ -26,5 +26,6 @@ urlpatterns = [
     path('teams/', views.TeamList.as_view(), name='teams'),
     path('testimonials/', views.TestimonialList.as_view(), name='testimonials'),
     path('collections/', views.CollectionList.as_view(), name='collections'),
+    path('company-profiles/', views.CompanyProfileList.as_view(), name='company_profiles'),
 
 ]

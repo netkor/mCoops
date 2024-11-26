@@ -4,7 +4,7 @@ from .models import (
     Setting, SocialLink, Slider, Testimonial, Team_Type, Team, 
     FinancialReportType, FinancialReport, Notice, Download, Popup, 
     Category, Tag, Post, Product, ProductDetails, InterestRate, 
-    ContactMessage, Collection, Photo
+    ContactMessage, Collection, Photo,CompanyProfile
 )
 # def custom_upload_function(instance, filename):
 #     # Your logic for handling the upload
@@ -112,6 +112,13 @@ class CollectionAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_taken', 'published')
     search_fields = ('title', 'location')
+
+@admin.register(CompanyProfile)
+class CompanyProfileAdmin(admin.ModelAdmin):
+    list_display = ('customers', 'staffs', 'branches', 'savings', 'loans', 'shares', 'capital', 'effective_date')
+    search_fields = ('effective_date',)
+
+
 
 # You can also register them without a custom ModelAdmin class if you prefer.
 # For example:

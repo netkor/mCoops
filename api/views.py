@@ -7,14 +7,14 @@ from rest_framework import status
 from core.models import (
     Setting, Slider, Category, ContactMessage, Download, FinancialReportType, FinancialReport, 
     InterestRate, Notice, Photo, Popup, Post, Product, ProductDetails, SocialLink, 
-    Tag, Team_Type, Team, Testimonial, Collection
+    Tag, Team_Type, Team, Testimonial, Collection,CompanyProfile
 )
 from .serializers import (
     SettingSerializer, SliderSerializer, CategorySerializer, ContactMessageSerializer, DownloadSerializer, 
     FinancialReportTypeSerializer, FinancialReportSerializer, InterestRateSerializer, 
     NoticeSerializer, PhotoSerializer, PopupSerializer, PostSerializer, ProductSerializer, 
     ProductDetailsSerializer, SocialLinkSerializer, TagSerializer, Team_TypeSerializer, 
-    TeamSerializer, TestimonialSerializer, CollectionSerializer, InterestRateDetailSerializer
+    TeamSerializer, TestimonialSerializer, CollectionSerializer, InterestRateDetailSerializer,CompanyProfileSerializer
 )
 class SettingList(APIView):
     def get(self, request):
@@ -161,4 +161,8 @@ class TestimonialList(APIView):
         serializer = TestimonialSerializer(testimonials, many=True)
         return Response(serializer.data)
 
-    
+class CompanyProfileList(APIView):
+    def get(self, request):
+        company_profile = CompanyProfile.objects.all()
+        serializer = CompanyProfileSerializer(company_profile, many=True)
+        return Response(serializer.data)    

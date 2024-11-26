@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Setting, Slider, Category, ContactMessage, Download, FinancialReportType, FinancialReport, InterestRate, Notice, Photo, Popup, Post, Product, ProductDetails,SocialLink, Tag, Team_Type, Team, Testimonial, Collection
+from core.models import Setting, Slider, Category, ContactMessage, Download, FinancialReportType, FinancialReport, InterestRate, Notice, Photo, Popup, Post, Product, ProductDetails,SocialLink, Tag, Team_Type, Team, Testimonial, Collection,CompanyProfile
 
 class SettingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -105,3 +105,8 @@ class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
         fields = '__all__'        
+
+class CompanyProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyProfile
+        fields = '__all__'

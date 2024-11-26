@@ -272,6 +272,19 @@ class ContactMessage(models.Model):
     def __str__(self):
         return self.subject
     
+class CompanyProfile(models.Model):
+    customers = models.IntegerField()
+    staffs = models.IntegerField()
+    branches = models.IntegerField()
+    savings = models.DecimalField(max_digits=10, decimal_places=2)
+    loans = models.DecimalField(max_digits=10, decimal_places=2)
+    shares = models.DecimalField(max_digits=10, decimal_places=2)
+    capital = models.DecimalField(max_digits=10, decimal_places=2)
+    effective_date = models.DateField()
+    def __str__(self):
+        return f"CompanyProfile {self.id} - {self.effective_date.strftime('%Y-%m-%d %H:%M:%S')}"
+       
+    
 class Collection(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(max_length=5000)
@@ -354,3 +367,5 @@ class Photo(models.Model):
 
     def get_absolute_url(self):
         return reverse("photo_detail", kwargs={"slug": self.slug})
+
+ 
