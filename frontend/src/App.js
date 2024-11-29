@@ -30,10 +30,10 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const isFirstVisit = localStorage.getItem('isFirstVisit');
+    const isFirstVisit = sessionStorage.getItem('isFirstVisit');
     if (!isFirstVisit) {
       setIsModalOpen(true);
-      localStorage.setItem('isFirstVisit', 'true');
+      sessionStorage.setItem('isFirstVisit', 'true');
     }
   }, []);
 
@@ -46,9 +46,7 @@ function App() {
       <div className="App">
         <Navbar />
         <div className="container mt-5">
-          <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="Notice">
-            <p>This is a pop-up notice.</p>
-          </Modal>
+          <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/introduction" element={<Introduction />} />
