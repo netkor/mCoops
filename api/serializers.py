@@ -92,6 +92,7 @@ class Team_TypeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TeamSerializer(serializers.ModelSerializer):
+    team_type = Team_TypeSerializer(many=True, read_only=True)
     class Meta:
         model = Team
         fields = '__all__'

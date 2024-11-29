@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.files.storage import FileSystemStorage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -147,6 +148,11 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+class CustomStorage(FileSystemStorage):
+    """Custom storage for django_ckeditor_5 images."""
+    location = os.path.join(MEDIA_ROOT, "django_ckeditor_5")
+    base_url = os.path.join(MEDIA_URL, "django_ckeditor_5/")
+
 customColorPalette = [
         {
             'color': 'hsl(4, 90%, 58%)',
@@ -175,11 +181,8 @@ customColorPalette = [
     ]
 
 # CKEDITOR_5_CUSTOM_CSS = 'path_to.css' # optional
-# CKEDITOR_5_CUSTOM_JS = 'path_to.js' # optional
-# CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage" 
-# CKEDITOR_5_IMAGE_UPLOAD_PATH = "path_to_storage.CustomStorage"
-CKEDITOR_5_FILE_STORAGE = 'django_ckeditor_5.storage.FileSystemStorage'
-# DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'# optional
+# CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage" # optional
+
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
@@ -242,9 +245,7 @@ CKEDITOR_5_CONFIGS = {
 }
 
 # Define a constant in settings.py to specify file upload permissions
-CKEDITOR_5_FILE_UPLOAD_PERMISSION = "authenticated"  # Possible values: "staff", "authenticated", "any"
-
-CK_EDITOR_5_UPLOAD_FILE_VIEW_NAME = "custom_upload_file"
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "any"  # Possible values: "staff", "authenticated", "any"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/build/static')

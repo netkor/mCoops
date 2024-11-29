@@ -18,22 +18,22 @@ def validate_lowercase(string):
 
 class Setting(models.Model):
     name= models.CharField(max_length=250, default="Site Name")
-    name_np= models.CharField(max_length=350, default="Site Name", null=True)
-    address = models.CharField(max_length=255, default="Default Address", null=True)
-    address_np = models.CharField(max_length=355, default="Default Address", null=True)
-    phone= models.CharField(max_length=150, default="977", null=True)
-    phone1 = models.CharField(max_length=150, default="977", null=True)
-    landline = models.CharField(max_length=150, default="977", null=True)
-    landline1 = models.CharField(max_length=150, default="977", null=True)
-    email= models.EmailField(blank=True, null=True)
-    map_url = models.URLField(blank=True, null=True)
-    logo = models.ImageField(upload_to='logos/', null=True)
-    about = models.TextField(default="Default About", null=True)
-    mission = models.TextField(default="Default Mission", null=True)
-    vision = models.TextField(default="Default Vision", null=True)
-    goal = models.TextField(default="Default Goal", null=True)
-    objective = models.TextField(default="Default Objective", null=True)
-    slogan = models.CharField(max_length=350, default="Default Slogan")
+    name_np= models.CharField(max_length=350, default="Site Name", null=True, blank=True)
+    address = models.CharField(max_length=255, default="Default Address", null=True, blank=True)
+    address_np = models.CharField(max_length=355, default="Default Address", null=True, blank=True)
+    phone= models.CharField(max_length=150, default="977", null=True, blank=True)
+    phone1 = models.CharField(max_length=150, default="977", null=True, blank=True)
+    landline = models.CharField(max_length=150, default="977", null=True, blank=True)
+    landline1 = models.CharField(max_length=150, default="977", null=True, blank=True)
+    email= models.EmailField(null=True, blank=True)
+    map_url = models.URLField(null=True, blank=True)
+    logo = models.ImageField(upload_to='logos/', null=True, blank=True)
+    about = models.TextField( null=True, blank=True)
+    mission = models.TextField( null=True, blank=True)
+    vision = models.TextField( null=True, blank=True)
+    goal = models.TextField(null=True, blank=True)
+    objective = models.TextField(null=True, blank=True)
+    slogan = models.CharField(max_length=350, default="Default Slogan", blank=True)
     image= models.ImageField(upload_to='images/')
     OFFICE_TYPE_CHOICES = [
         ('head_office', 'Head Office'),
@@ -55,7 +55,7 @@ class Setting(models.Model):
 class SocialLink(models.Model):
     setting = models.ForeignKey(Setting, related_name="social_links", on_delete=models.CASCADE)
     platform = models.CharField(max_length=50)  # e.g., Facebook, Twitter
-    icon = models.ImageField(upload_to='social_icons/', null=True)
+    icon = models.ImageField(upload_to='social_icons/', null=True, blank=True)
     url = models.URLField()  # Link to the social page
 
     def __str__(self):
@@ -66,6 +66,7 @@ class Slider(models.Model):
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='sliders/')
     link = models.URLField(null=True, blank=True)
+    link_button_text = models.CharField(max_length=150, null=True, blank=True)
     display_order = models.IntegerField(null=True, blank=True)
     display_title = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -77,10 +78,10 @@ class Slider(models.Model):
     
 class Testimonial(models.Model):
     name = models.CharField(max_length=150)
-    name_np = models.CharField(max_length=350, null=True)
-    position = models.CharField(max_length=150)
+    name_np = models.CharField(max_length=350, null=True, blank=True)
+    position = models.CharField(max_length=150, blank=True)
     description = models.TextField()
-    image = models.ImageField(upload_to='testimonials/')
+    image = models.ImageField(upload_to='testimonials/', blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -89,7 +90,7 @@ class Testimonial(models.Model):
         return self.name
 class Team_Type(models.Model):
     name = models.CharField(max_length=150)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     order_by = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -100,15 +101,15 @@ class Team_Type(models.Model):
     
 class Team(models.Model):
     name = models.CharField(max_length=250)
-    name_np = models.CharField(max_length=350, null=True)
-    phone = models.CharField(max_length=150)
-    email = models.EmailField(null=True)
-    team_type = models.ForeignKey(Team_Type, on_delete=models.CASCADE)
-    position = models.CharField(max_length=150)
-    description = models.TextField(null=True)
-    message = models.TextField(null=True)
-    image = models.ImageField(upload_to='teams/', null=True)
-    session = models.CharField(max_length=150,null=True)
+    name_np = models.CharField(max_length=350, null=True, blank=True)
+    phone = models.CharField(max_length=150, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    team_type = models.ManyToManyField('Team_Type')
+    position = models.CharField(max_length=150, null=True)
+    description = models.TextField(null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='teams/', null=True, blank=True)
+    session = models.CharField(max_length=150,null=True, blank=True)
     order_by = models.IntegerField(null=True, blank=True)
     is_message_featured = models.BooleanField(default=False)
     message_order_by = models.IntegerField(null=True, blank=True)
@@ -121,7 +122,7 @@ class Team(models.Model):
 
 class FinancialReportType(models.Model):
     name = models.CharField(max_length=150)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -131,11 +132,11 @@ class FinancialReportType(models.Model):
     
 class FinancialReport(models.Model):
     title = models.CharField(max_length=150)
-    title_np = models.CharField(max_length=350, null=True)
+    title_np = models.CharField(max_length=350, null=True, blank=True)
     financial_report_type = models.ForeignKey(FinancialReportType, on_delete=models.CASCADE)
-    description = CKEditor5Field('Text', config_name='extends', null=True)
-    image = models.ImageField(upload_to='financial_reports/', null=True)
-    file = models.FileField(upload_to='financial_reports/', null=True)
+    description = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
+    image = models.ImageField(upload_to='financial_reports/', null=True, blank=True)
+    file = models.FileField(upload_to='financial_reports/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -145,7 +146,7 @@ class FinancialReport(models.Model):
     
 class Notice(models.Model):
     title = models.CharField(max_length=150)
-    description = CKEditor5Field('Text', config_name='extends', null=True)
+    description = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
     image = models.ImageField(upload_to='notices/', null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -156,8 +157,8 @@ class Notice(models.Model):
     
 class Download(models.Model):
     title = models.CharField(max_length=150)
-    cover = models.ImageField(upload_to='downloads/', null=True)
-    description = models.TextField(null=True)
+    cover = models.ImageField(upload_to='downloads/', null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     file = models.FileField(upload_to='downloads/')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -168,7 +169,7 @@ class Download(models.Model):
 
 class Popup(models.Model):
     title = models.CharField(max_length=150,default="Popup Title", null=True)
-    description = models.TextField(default="Popup Description", null=True)
+    description = models.TextField(default="Popup Description", null=True, blank=True)
     image = models.ImageField(upload_to='popups/')
     link = models.URLField(null=True)
     display_order = models.IntegerField(null=True, blank=True)
@@ -184,7 +185,7 @@ class Popup(models.Model):
     
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     order = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -226,6 +227,8 @@ class Post(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=150)
+    description = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
+    image = models.ImageField(upload_to='products/')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -276,10 +279,10 @@ class CompanyProfile(models.Model):
     customers = models.IntegerField()
     staffs = models.IntegerField()
     branches = models.IntegerField()
-    savings = models.DecimalField(max_digits=10, decimal_places=2)
-    loans = models.DecimalField(max_digits=10, decimal_places=2)
-    shares = models.DecimalField(max_digits=10, decimal_places=2)
-    capital = models.DecimalField(max_digits=10, decimal_places=2)
+    savings = models.DecimalField(max_digits=16, decimal_places=2)
+    loans = models.DecimalField(max_digits=16, decimal_places=2)
+    shares = models.DecimalField(max_digits=16, decimal_places=2)
+    capital = models.DecimalField(max_digits=16, decimal_places=2)
     effective_date = models.DateField()
     def __str__(self):
         return f"CompanyProfile {self.id} - {self.effective_date.strftime('%Y-%m-%d %H:%M:%S')}"
@@ -287,7 +290,7 @@ class CompanyProfile(models.Model):
     
 class Collection(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    description = models.TextField(max_length=5000)
+    description = models.TextField(max_length=5000, blank=True, null=True)
 
     slug_guidelines = "Enter a unique, descriptive URL path (e.g. based on the name) containing " \
                       "only lowercase letters, numbers,  and hyphens (instead of spaces). "

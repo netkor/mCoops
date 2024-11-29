@@ -51,8 +51,9 @@ const Notice = () => {
               <div className="col-md-9">
                 <div className="card-body">
                   <h5 className="card-title">{notice.title}</h5>
-                  <p className="card-text">{notice.description}</p>
+                  {/* <p className="card-text">{notice.description}</p> */}
                   <p className="text-sm text-gray-500">
+                    <span>Published at: </span>
                     {new Date(notice.created_at).toLocaleDateString()}
                   </p>
                 </div>

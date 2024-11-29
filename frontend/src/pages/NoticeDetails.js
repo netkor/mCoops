@@ -15,7 +15,14 @@ const NoticeDetails = () => {
     const fetchNotice = async () => {
       try {
         const response = await axios.get(`${baseUrl}/notices/${id}`);
-        setNotice(response.data);
+        let description = response.data.description;
+
+        // Modify the description to prepend base URL to img src attributes
+        description = description.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, (match, p1) => {
+          return match.replace(p1, `${imageUrl}${p1}`);
+        });
+
+        setNotice({ ...response.data, description });
         setLoading(false);
       } catch (error) {
         setError('There was an error fetching the notice!');
@@ -41,7 +48,8 @@ const NoticeDetails = () => {
           <img src={`${imageUrl}${notice.image}`} className="card-img-top" alt={notice.title} />
           <div className="card-body">
             <h5 className="card-title">{notice.title}</h5>
-            <p className="card-text">{notice.description}</p>
+            <div dangerouslySetInnerHTML={{ __html: notice.description }} />
+            <a href="/" className="btn btn-primary">Go back</a>
             <p className="card-text"><small className="text-muted">Posted on: {new Date(notice.created_at).toLocaleDateString()}</small></p>
           </div>
         </div>

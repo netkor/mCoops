@@ -68,7 +68,7 @@ const Navbar = () => {
   return (
     <header className="border-bottom">
       {/* Top Section */}
-      <div className="container">
+      <div className="container-fluid">
         <div className="d-none d-lg-flex" >
           <TopSectionBar settings={settings} />
         </div>
@@ -79,22 +79,19 @@ const Navbar = () => {
             logo={settings.logo}
             imageUrl={imageUrl}
           />
-
           {/* Contact Info */}
           <div className="d-none d-lg-flex align-items-center">
             {/* Location */}
-            <Location location={settings.location} />
-
+            {/* <Location location={settings.address} /> */}
             {/* Phone */}
-            <Phones location={settings.phone} />
-
+            {/* <Phones location={settings} /> */}
             {/* Opening Hours */}
             <OpeningHours hours={settings.opening_hours} />
           </div>
         </div>
       </div>
       {/* Navbar Section */}
-      <div className="container">
+      <div className="container-fluid">
         <nav
           className={`navbar navbar-expand-lg navbar-dark bg-success py-1  ${
             scrolled ? "fixed-top opacity-20" : ""

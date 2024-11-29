@@ -1,0 +1,41 @@
+# Redirect all HTTP requests to HTTPS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Allow serving static and media files
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# Restrict access to hidden files (like .env or .git)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Deny access to sensitive Django files
+<FilesMatch "(settings\.py|urls\.py|wsgi\.py)">
+    Require all denied
+</FilesMatch>
+
+# Enable caching for static files (optional)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Restrict access to media files (if needed)
+<Directory "/home/manakam2/public_html/backend/media">
+    Require all denied
+</Directory>

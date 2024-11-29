@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Slider from '../components/Slider'; // Adjust the path as necessary
 import AboutInHome from '../components/AboutInHome'; // Adjust the path as necessary
 import ServicesInHome from '../components/ServicesInHome';
@@ -9,6 +9,7 @@ import Profile from '../components/Profile';
 import MarqueeNotice from '../components/MarqueeNotice';
 
 function Home() {
+
   return (
     <div>
       <Slider />
@@ -18,7 +19,6 @@ function Home() {
       <MobileBankingFeatured />
       <AboutInHome />
       <Profile />
-      <ServicesInHome />
       <NoticesInHome />
     </div>
   );

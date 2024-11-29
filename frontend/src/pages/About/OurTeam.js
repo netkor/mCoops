@@ -33,16 +33,14 @@ const OurTeam = () => {
 
   const filteredTeamTypes = teamTypes
     .filter((type) => type.name === "कर्मचारी")
-    .sort((a, b) => a.id - b.id);
+    .sort((a, b) => a.order_by - b.order_by);
 
   const groupedTeams = filteredTeamTypes.map((type) => ({
     type,
     members: teams
-      .filter((team) => team.team_type === type.id)
-      .sort((a, b) => a.order_by - b.order_by),
+      .filter((team) => team.team_type.some((t) => t.id === type.id))
+      .sort((b, a) => a.order_by - b.order_by),
   }));
-
- 
 
   if (loading) {
     return <div>Loading...</div>;

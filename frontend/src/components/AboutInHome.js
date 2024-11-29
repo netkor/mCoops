@@ -38,7 +38,7 @@ function AboutInHome() {
                     <h2 className="text-primary fw-bold ">हाम्रो बारेमा</h2>
                     <div className="clearfix">
                       <img
-                        src={`${imageUrl}/${settings.image}`}
+                        src={`${imageUrl}${settings.image}`}
                         alt="Building"
                         className="mb-3 rounded img-fluid float-md-start me-3"
                         style={{ maxWidth: "300px" }}

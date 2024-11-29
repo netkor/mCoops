@@ -1,50 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const baseUrl = process.env.REACT_APP_API_URL;
+const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 const MobileBankingFeatured = () => {
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/products/`);
+        const mobileBankingProduct = response.data.find(p => p.name === "Mobile Banking");
+        setProduct(mobileBankingProduct);
+        setLoading(false);
+      } catch (error) {
+        setError("There was an error fetching the data!");
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [baseUrl]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!product) {
+    return <div>No Mobile Banking product found.</div>;
+  }
+
   return (
-    <section className="mobile bg-cGray200 py-5">
-    <h1 className="text-center mb-4">Mobile Banking</h1>
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-6 mb-4 mb-lg-0">
-            <div className="img-wrapper">
-              <img
-                src="https://api.janasachetan.org.np/uploads/sitepages/2024-03-27-09-31-36-mobile banking.jpg"
-                alt="Mobile Banking"
-                className="img-fluid rounded shadow mx-auto d-block"
-                style={{ width: 'auto', height: '640px' }}
-              />
-            </div>
-          </div>
-          <div className="col-lg-6">
-            <h3 className="mt-3 mb-3">Easy banking from your mobile</h3>
-            <p>
-              Welcome to all Mobile Banking users. Our members can enjoy online payment facilities from anywhere and anytime including utilities payment, fund transfer, wallet load, deposit-loan payment, alert service and more services using our mobile banking service.
-            </p>
-            <div className="img-landscape my-4">
-              <iframe
-                width="100%"
-                height="315"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                src="https://www.youtube.com/embed/oNmVEXQupsA"
-              ></iframe>
-            </div>
-            <h6>Download Our Mobile App:</h6>
-            <div className="d-flex align-items-center gap-3 mt-3">
-              <a href="null" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/appstore.9ea94700.png" alt="App Store" className="store-badge" />
-              </a>
-              <a href="https://play.google.com/store/apps/details?id=com.infodev.mjanasachetan&hl=en&gl=US" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/googleplay.8210fe9c.png" alt="Google Play" className="store-badge" />
-              </a>
+    <div className="container my-4">
+      <h2 className="text-center mb-4">Features of Manakamana Mobile Banking App</h2>
+      <div className="row justify-content-center">
+        <div className="col-md-4">
+          <img
+            src={`${imageUrl}${product.image}`}
+            alt={product.name}
+            className="img-fluid"
+          />
+        </div>
+        <div className="col-md-8">
+          <div className="card">
+            <div className="card-body">
+              {/* <h5 className="card-title text-center">{product.name}</h5> */}
+              <div dangerouslySetInnerHTML={{ __html: product.description }} />
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

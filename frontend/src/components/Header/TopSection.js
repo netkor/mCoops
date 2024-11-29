@@ -11,14 +11,14 @@ const TopSection = ({ settings, logo, imageUrl }) => {
         src={settings.logo ? `${imageUrl}${settings.logo}` : "https://via.placeholder.com/100"}
         alt="Logo"
         className="rounded-circle border"
-        style={{ height: "40px", width: "40px", objectFit: "cover" }}
+        style={{ height: "50px", width: "50px", objectFit: "cover" }}
       />
       <div className="ms-2">
-        <h6 className="text-success fw-bold mb-0" style={{ fontSize: "18px" }}>
+        <h6 className="text-success mb-0" style={{ fontSize: "24px" }}>
           {settings.name_np || "मनकामना बचत तथा ऋण सहकारी संस्था लि."}
         </h6>
-        <span className="text-muted d-block" style={{ fontSize: "14px" }}>
-          {settings.name || "Manakamana Cooperative Ltd."}
+        <span className="d-block text-bold" style={{ fontSize: "18px", color:"red" }}>
+          {settings.name || "Manakamana Saving & Credit Co-operative Society Limited"}
         </span>
       </div>
     </div>
