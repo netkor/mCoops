@@ -77,7 +77,7 @@ function AboutInHome() {
                         <FontAwesomeIcon icon={faEye} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.vision}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.vision }} />
                       </div>
                     </div>
                   </div>
@@ -92,7 +92,7 @@ function AboutInHome() {
                         <FontAwesomeIcon icon={faBullseye} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.mission}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.mission }} />
                       </div>
                     </div>
                   </div>
@@ -107,12 +107,12 @@ function AboutInHome() {
                         <FontAwesomeIcon icon={faHeart} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.goal}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.goal }} />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="mt-1 mb-1 card text-bg-secondary"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
+                {/* <div className="mt-1 mb-1 card text-bg-secondary"  style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
                   <div className="card-header">
                     <strong>Objective</strong>
                   </div>
@@ -122,11 +122,11 @@ function AboutInHome() {
                         <FontAwesomeIcon icon={fa42Group} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.objective}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.objective }} />
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
           </div>
         </div>

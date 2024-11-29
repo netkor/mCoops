@@ -1,42 +1,34 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
-const MessageFromDirector = () => {
+function MessageFromDirector() {
   const [teams, setTeams] = useState([]);
-  const [teamTypes, setTeamTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
   const teamsUrl = `${baseUrl}/teams`;
-  const teamTypesUrl = `${baseUrl}/team-types`;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [teamsResponse, teamTypesResponse] = await Promise.all([
-          axios.get(teamsUrl),
-          axios.get(teamTypesUrl),
-        ]);
-        setTeams(teamsResponse.data);
-        setTeamTypes(teamTypesResponse.data);
+        const response = await axios.get(teamsUrl);
+        setTeams(response.data);
         setLoading(false);
       } catch (error) {
-        setError("There was an error fetching the data!");
+        setError("There was an error fetching the teams!");
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [teamsUrl, teamTypesUrl]);
+  }, [teamsUrl]);
+  console.log(teams);
 
-  const directorType = teamTypes.find(
-    (type) => type.order_by === 1
-  );
-
-  const director = teams.filter(
-    (team) => team.team_type === directorType?.id && team.order_by === 1
+  const director = teams.find(
+    (team) => team.team_type.some(type => type.order_by === 1) && team.order_by === 1
   );
 
   if (loading) {
@@ -48,16 +40,17 @@ const MessageFromDirector = () => {
   }
 
   return (
-    <div className="container my-4">
+    <div>
+      {director ? (
+        <div className="container my-4">
       <div className="row">
-        {director.map((team, index) => (
-          <div className="col-md-12" key={index}>
+          <div className="col-md-12">
             <div className="card h-100 text-center shadow">
               <div className="mt-3">
                 <img
-                  src={`${imageUrl}${team.image}`}
+                  src={`${imageUrl}${director.image}`}
                   className="rounded-circle shadow"
-                  alt={team.name}
+                  alt={director.name}
                   style={{
                     width: "240px",
                     height: "240px",
@@ -66,16 +59,19 @@ const MessageFromDirector = () => {
                 />
               </div>
               <div className="card-body">
-                <h5 className="card-title">{team.title}</h5>
-                <h6 className="card-subtitle mb-4 text-muted">{team.name}</h6>
-                <p className="card-text justify">{team.message}</p>
+                <h5 className="card-title">{director.title}</h5>
+                <h6 className="card-subtitle mb-4 text-muted">{director.name}</h6>
+                <p className="card-text" style={{ textAlign: "justify" }}>{director.message}</p>
               </div>
             </div>
           </div>
-        ))}
       </div>
     </div>
+      ) : (
+        <div>No director message found.</div>
+      )}
+    </div>
   );
-};
+}
 
 export default MessageFromDirector;

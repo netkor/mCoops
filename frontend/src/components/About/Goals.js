@@ -26,8 +26,11 @@ const Goals = () => {
       <i className="bi bi-bullseye fs-4 text-success"></i>
       </div>
       <h5 className="text-primary fw-bold">Goal</h5>
+      
       <p>
-        {goal}
+        {/* innerhtml= */}
+        dangerouslySetInnerHTML={{ __html: goal }}
+        {/* {goal} */}
       </p>
     </div>
   </div>

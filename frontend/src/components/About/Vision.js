@@ -27,7 +27,8 @@ const Goals = () => {
       </div>
       <h5 className="text-primary fw-bold">Vision</h5>
       <p>
-        {vision}
+        {/* {vision} */}
+                dangerouslySetInnerHTML={{ __html: vision }}
       </p>
     </div>
   </div>

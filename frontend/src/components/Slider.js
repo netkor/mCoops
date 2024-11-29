@@ -41,11 +41,11 @@ function Slider() {
               style={{  width:'full', objectFit: 'fill' }}
               alt={slider.title}
             />
-            <div className="p-3 bg-opacity-50 rounded carousel-caption d-none d-md-block bg-dark">
+            {slider.display_title &&<div className="p-3 bg-opacity-50 rounded carousel-caption d-none d-md-block bg-dark">
               <h5 className="text-white">{slider.title}</h5>
-              <p className="text-white">{slider.description}</p>
-              {slider.link && <a href={slider.link} className="rounded btn btn-primary">Learn More</a>}
-            </div>
+              {slider.description && <p className="text-white">{slider.description}</p>}
+              {slider.link && <a href={slider.link} className="rounded btn btn-primary">{slider.link_button_text}</a>}
+            </div>}
           </div>
         ))}
       </div>

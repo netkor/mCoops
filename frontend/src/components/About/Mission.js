@@ -28,7 +28,8 @@ const Mission = () => {
       </div>
       <h5 className="text-primary fw-bold">Mission</h5>
       <p>
-        {mission}
+        {/* {mission} */}
+                dangerouslySetInnerHTML={{ __html: mission }}
       </p>
     </div>
   </div>

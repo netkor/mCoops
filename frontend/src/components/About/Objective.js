@@ -27,7 +27,8 @@ const Objective = () => {
       </div>
       <h5 className="text-primary fw-bold">Objective</h5>
       <p>
-        {objective}
+        {/* {objective} */}
+                dangerouslySetInnerHTML={{ __html: objective }}
       </p>
     </div>
   </div>

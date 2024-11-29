@@ -30,7 +30,7 @@ const Profile = () => {
     
     <div className="container mt-5">
 
-      <h2 className="mb-4 text-center">Organization Profile</h2>
+      <h2 className="mb-0 text-center">Organization Profile</h2>
       <div className="text-center row">
         <div className="mb-4 col-md-4">
           <div className="border-0 shadow card">
@@ -101,7 +101,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-
+    <h3 className="mb-3 text-end">Updated at: {profile.effective_date}</h3>
     </div>
   );
 };

@@ -65,7 +65,9 @@ function Information() {
                         <FontAwesomeIcon icon={faEye} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.vision}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.vision }} />
+
+                        {/* <p className="card-text">{settings.vision}</p> */}
                       </div>
                     </div>
                   </div>
@@ -82,7 +84,8 @@ function Information() {
                         <FontAwesomeIcon icon={faBullseye} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.mission}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.mission }} />
+                        {/* <p className="card-text">{settings.mission}</p> */}
                       </div>
                     </div>
                   </div>
@@ -99,7 +102,8 @@ function Information() {
                         <FontAwesomeIcon icon={faHeart} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.goal}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.goal }} />
+                        {/* <p className="card-text">{settings.goal}</p> */}
                       </div>
                     </div>
                   </div>
@@ -116,7 +120,8 @@ function Information() {
                         <FontAwesomeIcon icon={fa42Group} size="2x" />
                       </div>
                       <div className="col-md-10">
-                        <p className="card-text">{settings.objective}</p>
+                        <div dangerouslySetInnerHTML={{ __html: settings.objective }} />
+                        {/* <p className="card-text">{settings.objective}</p> */}
                       </div>
                     </div>
                   </div>
