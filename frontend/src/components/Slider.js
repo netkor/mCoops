@@ -38,7 +38,7 @@ function Slider() {
             <img
               src={`${imageUrl}${slider.image}`}
               className="d-block w-100"
-              style={{ height: '500px', objectFit: 'cover' }}
+              style={{  width:'full', objectFit: 'fill' }}
               alt={slider.title}
             />
             <div className="p-3 bg-opacity-50 rounded carousel-caption d-none d-md-block bg-dark">

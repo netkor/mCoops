@@ -24,6 +24,8 @@ function MarqueeNotice() {
   };
 
   return (
+    notices.length === 0 ? null :
+
     <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', backgroundColor: 'red', padding: '10px' }}>
       <div style={{ display: 'inline-block', animation: 'marquee 30s linear infinite' }}>
         {notices.map(notice => (
@@ -46,6 +48,7 @@ function MarqueeNotice() {
         `}
       </style>
     </div>
+
   );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar'; // Import the Navbar component
 import Home from './pages/Home'; // Import the Home component
@@ -24,16 +24,31 @@ import Notice from './pages/Notice';
 import ProductDetails from './pages/Product/ProductDetails';
 import NoticeDetails from './pages/NoticeDetails';
 import PoweredBy from './components/PoweredBy';
-
-
+import Modal from './components/Modal'; // Import the Modal component
 
 function App() {
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const isFirstVisit = localStorage.getItem('isFirstVisit');
+    if (!isFirstVisit) {
+      setIsModalOpen(true);
+      localStorage.setItem('isFirstVisit', 'true');
+    }
+  }, []);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Router>
       <div className="App">
         <Navbar />
-        <div className="container mt-5" >
+        <div className="container mt-5">
+          <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="Notice">
+            <p>This is a pop-up notice.</p>
+          </Modal>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/introduction" element={<Introduction />} />
@@ -52,15 +67,9 @@ function App() {
             <Route path="/download" element={<Download />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/notice" element={<Notice />} />           
+            <Route path="/notice" element={<Notice />} />
             <Route path="/product/:id" element={<ProductDetails />} />
-            {/* Add more routes as needed */}
-            <Route path="/notice/:id" element={<NoticeDetails />} />           
-
-
-
-            
-            {/* Add more routes as needed */}
+            <Route path="/notice/:id" element={<NoticeDetails />} />
           </Routes>
         </div>
         <Footer />
