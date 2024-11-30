@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullseye, faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { fa42Group } from "@fortawesome/free-brands-svg-icons";
 
 const baseUrl = process.env.REACT_APP_API_URL + "/settings";
 const imageUrl = process.env.REACT_APP_IMAGE_URL;

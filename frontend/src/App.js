@@ -25,6 +25,10 @@ import ProductDetails from './pages/Product/ProductDetails';
 import NoticeDetails from './pages/NoticeDetails';
 import PoweredBy from './components/PoweredBy';
 import Modal from './components/Modal'; // Import the Modal component
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);

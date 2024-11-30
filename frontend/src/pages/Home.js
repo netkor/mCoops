@@ -1,4 +1,3 @@
-import React,{useEffect} from 'react';
 import Slider from '../components/Slider'; // Adjust the path as necessary
 import AboutInHome from '../components/AboutInHome'; // Adjust the path as necessary
 import ServicesInHome from '../components/ServicesInHome';

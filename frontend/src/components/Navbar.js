@@ -6,8 +6,7 @@ import Dropdown from "./Header/Dropdown";
 // import OpeningHours from './Header/OpeningHours';
 import axios from "axios";
 import OpeningHours from "./Header/OpeningHours";
-import Phones from "./Header/Phone";
-import Location from "./Header/Location";
+
 import TopSection from "./Header/TopSection";
 import TopSectionBar from "./Header/TopSectionBar";
 

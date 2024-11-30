@@ -23,7 +23,7 @@ const MobileBankingFeatured = () => {
     };
 
     fetchProduct();
-  }, [baseUrl]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -39,7 +39,7 @@ const MobileBankingFeatured = () => {
 
   return (
     <div className="container my-4">
-      <h2 className="text-center mb-4">Features of Manakamana Mobile Banking App</h2>
+      <h2 className="mb-4 text-center">Features of Manakamana Mobile Banking App</h2>
       <div className="row justify-content-center">
         <div className="col-md-4">
           <img
@@ -51,7 +51,7 @@ const MobileBankingFeatured = () => {
         <div className="col-md-8">
           <div className="card">
             <div className="card-body">
-              {/* <h5 className="card-title text-center">{product.name}</h5> */}
+              {/* <h5 className="text-center card-title">{product.name}</h5> */}
               <div dangerouslySetInnerHTML={{ __html: product.description }} />
             </div>
           </div>
