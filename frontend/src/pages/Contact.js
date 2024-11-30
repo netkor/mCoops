@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -22,13 +24,8 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
-    contact_time: '',
-    responded_to: false,
-    resolved: false
-
+    message: ''
   });
-  const [responseMessage, setResponseMessage] = useState('');
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -39,21 +36,24 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${baseUrl}/contact-messages/`, formData);
-      console.log(formData);
-      if (response.status === 200) {
-        setResponseMessage('Your message has been sent successfully!');
+      if (response.status === 201) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Your message has been sent successfully!',
+        });
         setFormData({
           name: '',
           email: '',
-          message: '',
-          contact_time: new Date().toISOString(),
-          responded_to: false,
-          resolved: false
-
+          message: ''
         });
       }
     } catch (error) {
-      setResponseMessage('There was an error sending your message. Please try again later.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'There was an error sending your message. Please try again later.',
+      });
     }
   };
 
@@ -112,24 +112,21 @@ const Contact = () => {
                   <label htmlFor="name" className="form-label">Name</label>
                   <input type="text" className="form-control" id="name" value={formData.name} onChange={handleChange} required />
                 </div>
-               
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email</label>
                   <input type="email" className="form-control" id="email" value={formData.email} onChange={handleChange} required />
                 </div>
-
                 <div className="mb-3">
                   <label htmlFor="message" className="form-label">Message</label>
                   <textarea className="form-control" id="message" rows="4" value={formData.message} onChange={handleChange} required></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Submit</button>
               </form>
-              {responseMessage && <p className="mt-3 text-center">{responseMessage}</p>}
             </div>
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 
