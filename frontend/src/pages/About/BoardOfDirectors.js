@@ -39,7 +39,7 @@ const BoardOfDirectors = () => {
     type,
     members: teams
       .filter((team) => team.team_type.some((t) => t.id === type.id))
-      .sort((b, a) => a.order_by - b.order_by),
+      .sort((b, a) => b.order_by - a.order_by), 
   }));
 
   if (loading) {

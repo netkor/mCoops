@@ -31,7 +31,7 @@ const Branch = () => {
             <div className="card h-100">
               <div className="row no-gutters">
                 <div className="col-md-5">
-                  <img src={`${imageUrl}/${branch.image}`} className="img-fluid rounded-start h-100" alt={branch.name} style={{ objectFit: 'cover', borderRadius: '15px 0 15px 0' }} />
+                  <img src={`${imageUrl}${branch.image}`} className="img-fluid rounded-start" alt={branch.name} style={{ objectFit: 'fill',height: '210px', borderRadius: '15px 0 15px 0' }} />
                 </div>
                 <div className="col-md-7">
                   <div className="card-body">
@@ -58,8 +58,9 @@ const Branch = () => {
             <div className="card h-100">
               <div className="row no-gutters">
                 <div className="col-md-5">
-                  <img src={`${imageUrl}/${center.image}`} className="cimg-fluid rounded-start h-100" alt={center.name}  style={{ objectFit: 'fill', borderRadius: '15px 0 15px 0' }}/>
+                  <img src={`${imageUrl}${center.image}`} className="img-fluid rounded-start" alt={center.name} style={{ objectFit: 'fill',height: '210px', borderRadius: '15px 0 15px 0' }} />
                 </div>
+                
                 <div className="col-md-7">
                   <div className="card-body">
                     <h5 className="card-title">{center.name}</h5>
