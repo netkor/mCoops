@@ -51,11 +51,11 @@ const LoanInterestRate = () => {
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th>क्र.सं.</th>
-            <th>ऋणकाे प्रकार</th>
-            <th>ऋण सीमा</th>
-            <th>अवधि</th>
-            <th>ब्याजदर</th>
+            <th>S.N.</th>
+            <th>Loan Product</th>
+            <th>Limit</th>
+            <th>Time Period</th>
+            <th>Interest</th>
           </tr>
         </thead>
         <tbody>

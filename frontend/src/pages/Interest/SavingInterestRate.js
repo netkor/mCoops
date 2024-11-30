@@ -51,11 +51,11 @@ const SavingInterestRate = () => {
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th>क्र.सं.</th>
-            <th>बचतकाे प्रकार</th>
-            <th>ऋण सीमा</th>
-            <th>अवधि</th>
-            <th>ब्याजदर</th>
+            <th>S.N.</th>
+            <th>Savings Product</th>
+            <th>Minimun Deposit</th>
+            <th>Time Period</th>
+            <th>Interest</th>
           </tr>
         </thead>
         <tbody>
