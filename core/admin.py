@@ -100,8 +100,8 @@ class InterestRateAdmin(admin.ModelAdmin):
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email_address', 'responded_to', 'resolved')
-    search_fields = ('first_name', 'last_name', 'email_address')
+    list_display = ('name', 'email', 'responded_to', 'resolved')
+    search_fields = ('name', 'email')
 
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
