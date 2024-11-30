@@ -1,47 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 const Modal = ({ isOpen, onClose }) => {
-  const [popup, setPopup] = useState(null);
+  const [popups, setPopups] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const popupsUrl = `${baseUrl}/popups/`;
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen) { 
       axios.get(popupsUrl)
         .then(response => {
           if (response.data.length > 0) {
-            setPopup(response.data[0]); // Assuming you want to show the first popup
+            const sortedPopups = response.data.sort((a, b) => a.display_order - b.display_order);
+            setPopups(sortedPopups);
+            setCurrentIndex(0); // Reset to the first popup when modal opens
           }
         })
         .catch(error => {
-          console.error("There was an error fetching the popups!", error);
+          console.error('Error fetching popup data:', error);
         });
     }
   }, [isOpen, popupsUrl]);
 
-  if (!isOpen || !popup) return null;
+  if (!isOpen) return null;
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % popups.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + popups.length) % popups.length);
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="fixed inset-0 bg-black opacity-50"></div>
-      <div className="z-50 w-11/12 p-6 bg-white rounded-lg shadow-lg md:w-1/2 lg:w-1/3">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold">{popup.title}</h2>
-          <button onClick={onClose} className="text-gray-600 hover:text-gray-900">
-            &times;
-          </button>
-        </div>
-        <div className="mb-4">
-          <img src={`${imageUrl}${popup.image}`} alt={popup.title} className="w-full h-auto rounded-lg" />
-        </div>
-        <div className="text-gray-700">{popup.content}</div>
-        <div className="mt-4 text-right">
-          <button onClick={onClose} className="px-4 py-2 text-white transition duration-300 bg-blue-500 rounded-md hover:bg-blue-600">
-            Close
-          </button>
+    <div 
+      className="modal fade show" 
+      style={{ display: 'block' }} 
+      tabIndex="-1" 
+      aria-labelledby="popup1" 
+      aria-modal="true" 
+      role="dialog"
+      onClick={handleOverlayClick}
+    >
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <button 
+              type="button" 
+              className="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close"
+              onClick={onClose}
+            ></button>
+          </div>
+          <div className="modal-body text-center">
+            {popups.length > 0 && (
+              <div>
+                <img src={`${imageUrl}${popups[currentIndex].image}`} alt="Popup" className="img-fluid mb-4" />
+                <div>
+                  <button className="btn btn-secondary me-2" onClick={handlePrev} disabled={currentIndex === 0}>
+                    Previous
+                  </button>
+                  <button className="btn btn-primary" onClick={handleNext} disabled={currentIndex === popups.length - 1}>
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
