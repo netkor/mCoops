@@ -6,7 +6,7 @@ urlpatterns = [
     path('settings/', views.SettingList.as_view(), name='settings'),
     path('sliders/', views.SliderList.as_view(), name='sliders'),
     path('categories/', views.CategoryList.as_view(), name='categories'),
-    path('contact-messages/', views.ContactMessageList.as_view(), name='contact_messages'),
+    path('contact-messages/', views.ContactMessageListView.as_view(), name='contact_messages'),
     path('downloads/', views.DownloadList.as_view(), name='downloads'),
     path('financial-report-types/', views.FinancialReportTypeList.as_view(), name='financial_report_types'),
     path('financial-reports/', views.FinancialReportList.as_view(), name='financial_reports'),
@@ -27,5 +27,7 @@ urlpatterns = [
     path('testimonials/', views.TestimonialList.as_view(), name='testimonials'),
     path('collections/', views.CollectionList.as_view(), name='collections'),
     path('company-profiles/', views.CompanyProfileList.as_view(), name='company_profiles'),
+
+    
 
 ]

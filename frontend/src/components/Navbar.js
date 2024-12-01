@@ -16,7 +16,7 @@ const Navbar = () => {
   const baseUrl = process.env.REACT_APP_API_URL;
   const imageUrl = process.env.REACT_APP_IMAGE_URL;
   const settingsUrl = `${baseUrl}/settings`;
-
+  
   useEffect(() => {
     axios
       .get(settingsUrl)
