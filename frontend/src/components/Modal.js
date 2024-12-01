@@ -15,7 +15,8 @@ const Modal = ({ isOpen, onClose }) => {
       axios.get(popupsUrl)
         .then(response => {
           if (response.data.length > 0) {
-            const sortedPopups = response.data.sort((a, b) => a.display_order - b.display_order);
+            const activePopups = response.data.filter(popup => popup.is_active);
+            const sortedPopups = activePopups.sort((a, b) => a.display_order - b.display_order);
             setPopups(sortedPopups);
             setCurrentIndex(0); // Reset to the first popup when modal opens
           }
@@ -26,7 +27,7 @@ const Modal = ({ isOpen, onClose }) => {
     }
   }, [isOpen, popupsUrl]);
 
-  if (!isOpen) return null;
+  if (!isOpen || popups.length === 0) return null;
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -64,19 +65,15 @@ const Modal = ({ isOpen, onClose }) => {
             ></button>
           </div>
           <div className="modal-body text-center">
-            {popups.length > 0 && (
-              <div>
-                <img src={`${imageUrl}${popups[currentIndex].image}`} alt="Popup" className="img-fluid mb-4" />
-                <div>
-                  <button className="btn btn-secondary me-2" onClick={handlePrev} disabled={currentIndex === 0}>
-                    Previous
-                  </button>
-                  <button className="btn btn-primary" onClick={handleNext} disabled={currentIndex === popups.length - 1}>
-                    Next
-                  </button>
-                </div>
-              </div>
-            )}
+            <img src={`${imageUrl}${popups[currentIndex].image}`} alt="Popup" className="img-fluid mb-4" />
+            <div>
+              <button className="btn btn-secondary me-2" onClick={handlePrev} disabled={currentIndex === 0}>
+                Previous
+              </button>
+              <button className="btn btn-primary" onClick={handleNext} disabled={currentIndex === popups.length - 1}>
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
