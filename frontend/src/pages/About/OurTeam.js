@@ -61,12 +61,16 @@ const OurTeam = () => {
                   <div className="mt-3">
                     <img
                       src={`${imageUrl}${team.image}`}
-                      className="rounded-circle shadow"
+                      // className="rounded-circle shadow"
                       alt={team.name}
                       style={{
                         width: "120px",
                         height: "120px",
-                        objectFit: "cover",
+                        objectFit: "Fill",
+                        borderRadius: "50px 0 50px 0",
+                        border: "1px solid #008000",
+                        boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                        
                       }}
                     />
                   </div>
