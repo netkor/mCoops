@@ -32,14 +32,13 @@ const OurTeam = () => {
   }, [teamsUrl, teamTypesUrl]);
 
   const filteredTeamTypes = teamTypes
-    .filter((type) => type.name === "कर्मचारी")
-    .sort((a, b) => a.order_by - b.order_by);
+    .filter((type) => type.name === "कर्मचारी");
 
   const groupedTeams = filteredTeamTypes.map((type) => ({
     type,
     members: teams
       .filter((team) => team.team_type.some((t) => t.id === type.id))
-      .sort((b, a) => a.order_by - b.order_by),
+      .sort((b, a) => b.order_by - a.order_by), 
   }));
 
   if (loading) {

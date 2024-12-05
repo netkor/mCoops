@@ -36,11 +36,20 @@ const BoardOfDirectors = () => {
     .sort((a, b) => a.order_by - b.order_by);
 
   const groupedTeams = filteredTeamTypes.map((type) => ({
-    type,
-    members: teams
-      .filter((team) => team.team_type.some((t) => t.id === type.id))
-      .sort((b, a) => b.order_by - a.order_by), 
-  }));
+  type,
+  members: teams
+    .filter((team) => team.team_type.some((t) => t.id === type.id))
+    .sort((b, a) => b.order_by - a.order_by)
+    .map((team, index) => {
+      if (type.name !== 'संञ्चालक समिति') {
+        return {
+          ...team,
+          position: index === 0 ? 'स‌‌याेजक' : 'सदस्य'
+        };
+      }
+      return team;
+    }),
+}));
 
   if (loading) {
     return <div>Loading...</div>;
@@ -67,7 +76,7 @@ const BoardOfDirectors = () => {
                       style={{
                         width: "120px",
                         height: "120px",
-                        objectFit: "cover",
+                        objectFit: "Fill",
                       }}
                     />
                   </div>
