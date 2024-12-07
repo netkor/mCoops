@@ -17,9 +17,15 @@ const Remittance = () => {
         const remittanceProduct = response.data.find(p => p.name === "Remittance");
         setProduct(remittanceProduct);
 
+        // Modify the description to prepend base URL to img src attributes
+        let description = remittanceProduct.description;
+        description = description.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, (match, p1) => {
+          return match.replace(p1, `${imageUrl}${p1}`);
+        });
+
         // Extract image URLs from the description
         const parser = new DOMParser();
-        const doc = parser.parseFromString(remittanceProduct.description, 'text/html');
+        const doc = parser.parseFromString(description, 'text/html');
         const imageElements = doc.getElementsByTagName('img');
         const imageUrls = Array.from(imageElements).map(img => img.src);
         setImages(imageUrls);
@@ -42,11 +48,9 @@ const Remittance = () => {
       <h2 className="text-center">Remittance</h2>
       <div className="row mt-4">
         {images.map((src, index) => (
-          <div className="col-md-4 mb-4" key={index}>
-            <div className="card">
+          <div className="col-md-3 mb-4" key={index}>
               <img src={src} className="card-img-top" alt={`Remittance ${index + 1}`} />
             </div>
-          </div>
         ))}
       </div>
     </div>
