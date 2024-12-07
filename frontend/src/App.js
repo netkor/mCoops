@@ -12,6 +12,8 @@ import OurFinancial from './pages/About/OurFinancial';
 import AnnualReport from './pages/About/AnnualReport';
 import Loan from './pages/Product/Loan';
 import Deposit from './pages/Product/Deposit';
+import LoanDetails from './pages/Product/LoanDetails';
+import DepositDetails from './pages/Product/DepositDetails';
 import Remittance from './pages/Product/Remittance';
 import MobileBanking from './pages/Product/MobileBanking';
 import SavingInterestRate from './pages/Interest/SavingInterestRate';
@@ -21,7 +23,6 @@ import Download from './pages/Download';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import Notice from './pages/Notice';
-import ProductDetails from './pages/Product/ProductDetails';
 import NoticeDetails from './pages/NoticeDetails';
 import PoweredBy from './components/PoweredBy';
 import Modal from './components/Modal'; // Import the Modal component
@@ -70,7 +71,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/notice" element={<Notice />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/productDeposit/:id" element={<DepositDetails />} />
+            <Route path="/productLoan/:id" element={<LoanDetails />} />
             <Route path="/notice/:id" element={<NoticeDetails />} />
           </Routes>
         </div>

@@ -19,12 +19,11 @@ const Deposit = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [productDetailsResponse, productResponse, interestRatesResponse] =
-          await Promise.all([
-            axios.get(productDetailsUrl),
-            axios.get(productsUrl),
-            axios.get(interestUrl),
-          ]);
+        const [productDetailsResponse, productResponse, interestRatesResponse] = await Promise.all([
+          axios.get(productDetailsUrl),
+          axios.get(productsUrl),
+          axios.get(interestUrl),
+        ]);
         setProductDetails(productDetailsResponse.data);
         setProducts(productResponse.data);
         setInterest(interestRatesResponse.data);
@@ -34,14 +33,12 @@ const Deposit = () => {
         setLoading(false);
       }
     };
-
+    
     fetchData();
   }, [productDetailsUrl, productsUrl, interestUrl]);
 
   const getInterestRatesForProduct = (productId) => {
-    return interest.filter(
-      (rate) => rate.product_type === productId && rate.end_date === null
-    );
+    return interest.filter(rate => rate.product_type === productId && rate.end_date === null);
   };
 
   const filteredProducts = products.filter((product) => product.name === "बचत");
@@ -55,7 +52,7 @@ const Deposit = () => {
   }
 
   const handleProductClick = (id, interestRates) => {
-    navigate(`/product/${id}`, { state: { interestRates } });
+    navigate(`/productDeposit/${id}`, { state: { interestRates } });
   };
 
   return (
@@ -68,24 +65,11 @@ const Deposit = () => {
               .filter((detail) => detail.product === product.id)
               .map((detail, index) => (
                 <div className="mb-2 col-md-3" key={index}>
-                  <div
-                    className="border-0 shadow-sm card"
-                    onClick={() =>
-                      handleProductClick(
-                        detail.id,
-                        getInterestRatesForProduct(detail.id)
-                      )
-                    }
+                  <div className="border-0 shadow-sm card"
+                    onClick={() => handleProductClick(detail.id, getInterestRatesForProduct(detail.id))}
                     style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}
-
-                  >
-                    <div
-                      className="py-3 text-center bg-white border-0 card-header"
-                      style={{
-                        objectFit: "fill",
-                        borderRadius: "50px 0 50px 0",
-                      }}
-                    >
+>
+                    <div className="py-3 text-center bg-white border-0 card-header">
                       <div className="d-flex flex-column align-items-center">
                         <div className="mb-3">
                           <img
@@ -104,16 +88,9 @@ const Deposit = () => {
                         Minimum Deposit: {detail.minimum_deposit}
                       </h6>
                       <h6 className="fw-bold text-dark">
-                        Interest Rate:{" "}
-                        {getInterestRatesForProduct(detail.id)
-                          .map((rate) => rate.interest_rate)
-                          .join(", ")}
-                        %
+                        Interest Rate: {getInterestRatesForProduct(detail.id).map(rate => rate.interest_rate).join(', ')}%
                       </h6>
-                      <button
-                        onClick={() => handleProductClick(product.id)}
-                        className="p-0 btn btn-link text-success text-decoration-none"
-                      >
+                      <button onClick={() => handleProductClick(product.id)} className="p-0 btn btn-link text-success text-decoration-none">
                         थप पढ्नुहोस् <i className="bi bi-arrow-right"></i>
                       </button>
                     </div>

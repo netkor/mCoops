@@ -52,7 +52,7 @@ const Deposit = () => {
   }
 
   const handleProductClick = (id, interestRates) => {
-    navigate(`/product/${id}`, { state: { interestRates } });
+    navigate(`/productLoan/${id}`, { state: { interestRates } });
   };
 
   return (

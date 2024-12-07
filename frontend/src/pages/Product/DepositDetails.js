@@ -25,7 +25,7 @@ const ProductDetails = () => {
         ]);
 
         setProductDetail(productDetailResponse.data);
-        setOtherProducts(otherProductsResponse.data.filter(product => product.id !== parseInt(id)));
+        setOtherProducts(otherProductsResponse.data.filter(productdepo => productdepo.id !== parseInt(id) && productdepo.product === 2));
         setInterestRates(interestRatesResponse.data.filter(rate => rate.end_date === null));
         setLoading(false);
       } catch (error) {
@@ -40,9 +40,16 @@ const ProductDetails = () => {
 
   const handleProductClick = async (productId) => {
     try {
-      const response = await axios.get(`${baseUrl}/interest-rates/${productId}/`);
-      const interestRates = response.data.filter(rate => rate.end_date === null);
-      navigate(`/product/${productId}`, { state: { interestRates } });
+      const [productDetailResponse, otherProductsResponse, interestRatesResponse] = await Promise.all([
+        axios.get(`${baseUrl}/product-details/${productId}`),
+        axios.get(`${baseUrl}/product-details`),
+        axios.get(`${baseUrl}/interest-rates/${productId}/`)
+      ]);
+
+      setProductDetail(productDetailResponse.data);
+      setOtherProducts(otherProductsResponse.data.filter(productdepo => productdepo.id !== parseInt(productId) && productdepo.product === 2));
+      setInterestRates(interestRatesResponse.data.filter(rate => rate.end_date === null));
+      navigate(`/productDeposit/${productId}`, { state: { interestRates } });
     } catch (error) {
       console.error('There was an error fetching the interest rates!', error);
     }
@@ -104,17 +111,17 @@ const ProductDetails = () => {
         <div className="col-md-4">
           <h4 className="text-center">Other Products</h4>
           <ul className="list-group" style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
-            {otherProducts.map((product) => (
-              <li className="list-group-item" key={product.id} onClick={() => handleProductClick(product.id)}>
+            {otherProducts.map((products) => (
+              <li className="list-group-item" key={products.id} onClick={() => handleProductClick(products.id)}>
                 <div className="d-flex align-items-center" style={{ objectFit: "fill", borderRadius: "50px 0 50px 0" }}>
                   <img
-                    src={`${imageUrl}${product.banner}`}
-                    alt={product.name}
+                    src={`${imageUrl}${products.banner}`}
+                    alt={products.name}
                     className="img-fluid me-3"
                     style={{ width: '75px', height: '50px', objectFit: 'fit'  }}
                   />
                   <div>
-                    <h6 className="mb-0">{product.name}</h6>
+                    <h6 className="mb-0">{products.name}</h6>
                   </div>
                 </div>
               </li>
