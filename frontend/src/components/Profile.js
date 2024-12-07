@@ -49,6 +49,18 @@ const Profile = () => {
               <div className="mb-2">
                 {/* <i className={`bi ${item.icon} fs-2`}></i> */}
               </div>
+              <h5 className="card-title">Child Depositors</h5>
+              <p className="card-text fs-4 fw-bold">{profile.childCustomers}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mb-4 col-md-4">
+          <div className="border-0 shadow card">
+            <div className="card-body">
+              <div className="mb-2">
+                {/* <i className={`bi ${item.icon} fs-2`}></i> */}
+              </div>
               <h5 className="card-title">Staffs</h5>
               <p className="card-text fs-4 fw-bold">{profile.staffs}</p>
             </div>
@@ -65,8 +77,8 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="text-center row">
+      {/* </div>
+      <div className="text-center row"> */}
         <div className="mb-4 col-md-4">
           <div className="border-0 shadow card">
             <div className="card-body">
@@ -97,6 +109,28 @@ const Profile = () => {
               </div>
               <h5 className="card-title">Shares</h5>
               <p className="card-text fs-4 fw-bold">{profile.shares}</p>
+            </div>
+          </div>
+        </div>
+        <div className="mb-4 col-md-4">
+          <div className="border-0 shadow card">
+            <div className="card-body">
+              <div className="mb-2">
+                {/* <i className={`bi ${item.icon} fs-2`}></i> */}
+              </div>
+              <h5 className="card-title">Capital</h5>
+              <p className="card-text fs-4 fw-bold">{profile.capital}</p>
+            </div>
+          </div>
+        </div>
+        <div className="mb-4 col-md-4">
+          <div className="border-0 shadow card">
+            <div className="card-body">
+              <div className="mb-2">
+                {/* <i className={`bi ${item.icon} fs-2`}></i> */}
+              </div>
+              <h5 className="card-title">Funds</h5>
+              <p className="card-text fs-4 fw-bold">{profile.funds}</p>
             </div>
           </div>
         </div>

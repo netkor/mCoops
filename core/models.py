@@ -56,11 +56,14 @@ class SocialLink(models.Model):
     setting = models.ForeignKey(Setting, related_name="social_links", on_delete=models.CASCADE)
     platform = models.CharField(max_length=50)  # e.g., Facebook, Twitter
     icon = models.ImageField(upload_to='social_icons/', null=True, blank=True)
-    url = models.URLField()  # Link to the social page
-
+    url = models.URLField(null=True, blank=True)
+    is_social_link = models.BooleanField(default=False)
+    is_useful_link = models.BooleanField(default=False)
+    is_affiliation= models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     def __str__(self):
         return f"{self.platform} link"
-    
+        
 class Slider(models.Model):
     title = models.CharField(max_length=150, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -72,7 +75,6 @@ class Slider(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.title
     
@@ -126,7 +128,6 @@ class FinancialReportType(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.name
     
@@ -140,7 +141,6 @@ class FinancialReport(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.title
     
@@ -151,7 +151,6 @@ class Notice(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.title
     
@@ -163,7 +162,6 @@ class Download(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.title
 
@@ -171,13 +169,12 @@ class Popup(models.Model):
     title = models.CharField(max_length=150,default="Popup Title", null=True)
     description = models.TextField(default="Popup Description", null=True, blank=True)
     image = models.ImageField(upload_to='popups/')
-    link = models.URLField(null=True)
+    link = models.URLField(null=True, blank=True)
     display_order = models.IntegerField(null=True, blank=True)
     display_title = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.title
     
@@ -189,7 +186,6 @@ class Category(models.Model):
     order = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.name
 
@@ -238,7 +234,7 @@ class ProductDetails(models.Model):
     description = CKEditor5Field('Text', config_name='extends', null=True, blank=True) 
     banner = models.ImageField(upload_to='products/')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    minimum_deposit = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    minimum_deposit = models.CharField(max_length=150, null=True, blank=True)
     withdrawal_policy = CKEditor5Field('Text', config_name='extends', null=True, blank=True)
     term_length = models.CharField(max_length=150, null=True, blank=True)
     is_renewable = models.BooleanField(default=False, null=True, blank=True)
@@ -252,7 +248,7 @@ class ProductDetails(models.Model):
 class InterestRate(models.Model):
     name = models.CharField(max_length=150, default="Interest Rate")
     product_type = models.ForeignKey(ProductDetails, on_delete=models.CASCADE)
-    interest_rate = models.DecimalField(max_digits=5, decimal_places=2)
+    interest_rate = models.CharField(max_length=150, null=True, blank=True)
     effective_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -277,10 +273,12 @@ class CompanyProfile(models.Model):
     customers = models.IntegerField()
     staffs = models.IntegerField()
     branches = models.IntegerField()
+    childCustomers = models.IntegerField(blank=True, null=True)
     savings = models.DecimalField(max_digits=16, decimal_places=2)
     loans = models.DecimalField(max_digits=16, decimal_places=2)
     shares = models.DecimalField(max_digits=16, decimal_places=2)
     capital = models.DecimalField(max_digits=16, decimal_places=2)
+    funds = models.DecimalField(max_digits=16, decimal_places=2)
     effective_date = models.DateField()
     def __str__(self):
         return f"CompanyProfile {self.id} - {self.effective_date.strftime('%Y-%m-%d %H:%M:%S')}"

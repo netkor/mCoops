@@ -5,10 +5,19 @@ const baseUrl = process.env.REACT_APP_API_URL;
 const imageUrl = process.env.REACT_APP_IMAGE_URL;
 
 function Footer() {
-  // const [settings, setSettings] = useState(null);
+  // const [settings, setSettings] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
   // const settingsUrl = `${baseUrl}/settings`;
   const socialLinksUrl = `${baseUrl}/social-links`;
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth(); // 0-11 (0 = January, 11 = December)
+  const currentDay = currentDate.getDate();
+
+  const isWinterSeason = (currentMonth === 10 && currentDay >= 1) || // November
+                         (currentMonth === 11) || // December
+                         (currentMonth === 0) || // January
+                         (currentMonth === 1 && currentDay <= 31);
 
   useEffect(() => {
     // axios.get(settingsUrl)
@@ -29,79 +38,88 @@ function Footer() {
         console.error("There was an error fetching the social links!", error);
       });
   }, [socialLinksUrl]);
+  const usefulLinks = socialLinks.filter(link => link.is_useful_link);
+  const otherLinks = socialLinks.filter(link => link.is_social_link);
 
   return (
-    <footer className="text-center text-white" style={{ backgroundColor: '#3C923AFF' }}>
-      <div className="container">
-        {/* Section: Links */}
-        <section className="mt-5">
-          <div className="row text-center d-flex justify-content-center pt-5">
-            <div className="col-md-2">
-              <h6 className="text-uppercase font-weight-bold">
-                <a href="/introduction" className="text-white">About Us</a>
-              </h6>
+      <footer style={{ backgroundColor: '#0A5A22FF' }}>
+        <div className="container p-4">
+          <div className="row">
+            <div className="col-lg-3 col-md-12 mb-4">
+              <h5 className="mb-3" style={{ letterSpacing: '2px', color: '#F8F9F5FF' }}>Quick Links</h5>
+              <ul className="list-unstyled">
+                <li className="mb-1">
+                  <a href="/introduction" style={{ color: '#F5F4F4FF' }}>About Us</a>
+                </li>
+                <li className="mb-1">
+                  <a href="/branches" style={{ color: '#F7EEEEFF' }}>Branches</a>
+                </li>
+                <li className="mb-1">
+                  <a href="/deposit" style={{ color: '#F6F1F1FF' }}>Deposits</a>
+                </li>
+                <li className="mb-1">
+                  <a href="/loan" style={{ color: '#F5F2F2FF' }}>Loans</a>
+                </li>
+                <li>
+                  <a href="/contact" style={{ color: '#F7F4F4FF' }}>Contact</a>
+                </li>
+              </ul>
             </div>
-            <div className="col-md-2">
-              <h6 className="text-uppercase font-weight-bold">
-                <a href="/branches" className="text-white">Branches</a>
-              </h6>
+            <div className="col-lg-3 col-md-6 mb-4">
+              <h5 className="mb-3" style={{ letterSpacing: '2px', color: '#F3F5EFFF' }}>Useful Links</h5>
+              <ul className="list-unstyled mb-0">
+                {usefulLinks.map(link => (
+                  <li className="mb-1" key={link.id}>
+                    <a href={link.url} style={{ color: '#F8F5F5FF' }}>
+                      {/* <img src={`${imageUrl}${link.icon}`} alt={link.platform} width="24" height="24" className="me-2" /> */}
+                      {link.platform}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="col-md-2">
-              <h6 className="text-uppercase font-weight-bold">
-                <a href="/deposit" className="text-white">Deposits</a>
-              </h6>
+            <div className="col-lg-3 col-md-6 mb-4">
+              <h5 className="mb-3" style={{ letterSpacing: '2px', color: '#F6F7F5FF' }}>Social Links</h5>
+              <ul className="list-unstyled mb-0">
+                {otherLinks.map(link => (
+                  <li className="mb-1" key={link.id}>
+                    <a href={link.url} style={{ color: '#FBF5F5FF' }}>
+                      <img src={`${imageUrl}${link.icon}`} alt={link.platform} width="24" height="24" className="me-2" />
+                      {link.platform}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="col-md-2">
-              <h6 className="text-uppercase font-weight-bold">
-                <a href="/loan" className="text-white">Loans</a>
-              </h6>
-            </div>
-            <div className="col-md-2">
-              <h6 className="text-uppercase font-weight-bold">
-                <a href="/contact" className="text-white">Contact</a>
-              </h6>
+            <div className="col-lg-3 col-md-6 mb-4">
+              <div className="d-flex flex-column" style={{ color: '#FBF5F5FF' }}>
+                <p className="mb-0 fw-bold" style={{ fontSize: "20px" }}>
+                  Opening Hours
+                </p>
+                {isWinterSeason ? (
+                  <span className="fw-bold d-block" style={{ fontSize: "15px" }}>
+                    Sun: 9am - 4pm , 
+                    Mon: 9am - 12pm <br />
+                    Tue: 9am - 4pm ,
+                    Wed: 9am - 4pm <br />
+                    Thu: 9am - 4pm ,
+                    Fri: 9am - 4pm <br />
+                    Sat: 9am - 4pm
+                  </span>
+                ) : (
+                  <span className="d-block" style={{ fontSize: "15px" }}>
+                    Tue-Sun: 9am - 5pm <br /> Mon: 9am - 12pm
+                  </span>
+                )}
+              </div>
             </div>
           </div>
-        </section>
-        {/* Section: Links */}
-
-        <hr className="my-5" />
-
-        {/* Section: Text */}
-        {/* <section className="mb-5">
-          <div className="row d-flex justify-content-center">
-            <div className="col-lg-8">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-                distinctio earum repellat quaerat voluptatibus placeat nam,
-                commodi optio pariatur est quia magnam eum harum corrupti
-                dicta, aliquam sequi voluptate quas.
-              </p>
-            </div>
-          </div>
-        </section> */}
-        {/* Section: Text */}
-
-        {/* Section: Social */}
-        <section className="text-center mb-5">
-          {socialLinks.map(link => (
-            <a key={link.id} href={link.url} className="text-white me-4">
-              <img src={`${imageUrl}${link.icon}`} alt={link.platform} width="32" height="32" />
-            </a>
-          ))}
-        </section>
-        {/* Section: Social */}
-      </div>
-
-      {/* Copyright */}
-      <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-        © {new Date().getFullYear()} Copyright:
-        <a className="text-white" href="https://manakamanasaccos.coop.np">
-          Manakamana Saving & Credit Co-operative Ltd.
-        </a>
-      </div>
-      {/* Copyright */}
-    </footer>
+        </div>
+        <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', color: '#FBF5F5FF' }}>
+          © {new Date().getFullYear()} Copyright:
+          <a className="text-white" href="https://manakamanasaccos.coop.np/">Manakamanasaccos.coop.np</a>
+        </div>
+      </footer>
   );
 }
 

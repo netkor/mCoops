@@ -35,7 +35,7 @@ function NoticesInHome() {
               </div>              
               <div className="card-body">
                 <h5 className="card-title">{notice.title}</h5>
-                <p className="card-text">{notice.description}</p>
+                {/* <p className="card-text">{notice.description}</p> */}
                 <button className="mt-auto btn btn-primary" onClick={() => handleViewNotice(notice.id)}>View Notice</button>
               </div>
             </div>

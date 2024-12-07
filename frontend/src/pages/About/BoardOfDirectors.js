@@ -41,10 +41,10 @@ const BoardOfDirectors = () => {
     .filter((team) => team.team_type.some((t) => t.id === type.id))
     .sort((b, a) => b.order_by - a.order_by)
     .map((team, index) => {
-      if (type.name !== 'संञ्चालक समिति') {
+      if (type.name !== 'संञ्चालक समिति' && type.name !=='सल्लाहकार') {
         return {
           ...team,
-          position: index === 0 ? 'स‌‌याेजक' : 'सदस्य'
+          position: index === 0 ? 'संयोजक' : 'सदस्य'
         };
       }
       return team;

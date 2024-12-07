@@ -6,6 +6,7 @@ import Message from '../components/Message';
 import MobileBankingFeatured from '../components/MobileBankingFeatured';
 import Profile from '../components/Profile';
 import MarqueeNotice from '../components/MarqueeNotice';
+import Affiliations from '../components/Affiliations';
 
 function Home() {
 
@@ -19,6 +20,7 @@ function Home() {
       <AboutInHome />
       <Profile />
       <NoticesInHome />
+      <Affiliations />
     </div>
   );
 }
