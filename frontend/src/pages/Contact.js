@@ -24,7 +24,12 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    created_at: new Date().toISOString(),
+    responded_to:false,
+    resolved:false
+
+    
   });
 
   const handleChange = (e) => {
@@ -36,6 +41,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${baseUrl}/contact-messages/`, formData);
+      console.log(response);
       if (response.status === 201) {
         Swal.fire({
           icon: 'success',
@@ -45,7 +51,10 @@ const Contact = () => {
         setFormData({
           name: '',
           email: '',
-          message: ''
+          message: '',
+          created_at: new Date().toISOString(),
+          responded_to:false,
+          resolved:false
         });
       }
     } catch (error) {
